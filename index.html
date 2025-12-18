@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cadı Atölyesi | Kayıt & Banka Ödemesi</title>
+  <title>Cadı Atölyesi | Kayıt</title>
 
   <style>
     body {
@@ -51,6 +51,12 @@
       line-height: 1.5;
     }
 
+    .iban {
+      font-weight: 600;
+      color: #f9a8d4;
+      word-break: break-all;
+    }
+
     button {
       width: 100%;
       padding: 15px;
@@ -62,58 +68,89 @@
       cursor: pointer;
     }
 
-    .success { display: none; text-align: center; }
-    .success h2 { color: #f9a8d4; }
+    .success {
+      display: none;
+      text-align: center;
+    }
+
+    .success h2 {
+      color: #f9a8d4;
+    }
+
+    .note {
+      font-size: 11px;
+      opacity: .7;
+      text-align: center;
+      margin-top: 14px;
+    }
   </style>
 </head>
 <body>
 
 <div class="form-card" id="formCard">
   <h1>Cadı Atölyesi</h1>
-  <p class="subtitle">Atölye Kayıt Formu</p>
+  <p class="subtitle">Atölye Kayıt Formu (Banka Havalesi)</p>
 
   <form id="registerForm">
+
     <label>Ad Soyad</label>
-    <input type="text" id="name" required>
+    <input type="text" id="name" required placeholder="Ad Soyad">
 
     <label>E-posta</label>
-    <input type="email" id="email" required>
+    <input type="email" id="email" required placeholder="ornek@mail.com">
 
     <label>Telefon</label>
-    <input type="tel" id="phone" required>
+    <input type="tel" id="phone" required placeholder="05xx xxx xx xx">
 
     <label>Tarih</label>
     <input type="date" id="dateInput" required>
 
-    <label>Seans</label>
+    <label>Seans Saati</label>
     <select id="timeSlot" required>
       <option value="">Seçiniz</option>
-      <option>09:00-11:30</option>
-      <option>12:00-14:30</option>
-      <option>15:00-17:30</option>
+      <option>09:00 – 11:30</option>
+      <option>12:00 – 14:30</option>
+      <option>15:00 – 17:30</option>
     </select>
 
     <label>Atölye</label>
     <select id="workshop" required>
       <option value="">Seçiniz</option>
       <option>Kil Atölyesi</option>
-      <option>Küçük Tuval</option>
-      <option>Kavanoz Boyama</option>
+      <option>Küçük Tuval Atölyesi</option>
+      <option>Kavanoz Boyama Atölyesi</option>
     </select>
 
-    <label>Ücret</label>
-    <input type="number" id="priceInput" required>
+    <label>Atölye Ücreti (TL)</label>
+    <input type="number" id="priceInput" required placeholder="Ücreti giriniz">
 
-    <label>Dekont</label>
+    <label>Dekont Yükle (zorunlu)</label>
     <input type="file" id="receipt" required>
+
+    <!-- IBAN & İSİM -->
+    <div class="info">
+      <strong>Banka Havalesi Bilgileri</strong><br>
+      <span style="display:block;margin-top:6px;font-weight:600;color:#fde68a;">
+        Alıcı Adı: Merve Köken
+      </span><br>
+      Ödeme yapılmadan kayıt onaylanmaz.<br><br>
+      <span class="iban">
+        IBAN: TR90 0001 0090 1009 4361 3050 01
+      </span><br>
+      Açıklama: <em>Ad Soyad – Atölye Adı</em>
+    </div>
 
     <button type="submit">Kaydı Gönder</button>
   </form>
+
+  <div class="note">
+    ⚠️ Ödeme dekontunu lütfen WhatsApp üzerinden de iletiniz.
+  </div>
 </div>
 
 <div class="form-card success" id="successCard">
   <h2>✨ Kayıt Gönderildi</h2>
-  <p>Başvurun başarıyla alındı 💜</p>
+  <p>Dekontunuz incelendikten sonra kaydınız onaylanacaktır.</p>
 </div>
 
 <script>
@@ -159,14 +196,14 @@
       });
 
       const data = await res.json();
-      if (!data.ok) throw new Error("Hata");
+      if (!data.ok) throw new Error();
 
       alert("Kayıt gönderildi 💜");
       formCard.style.display = "none";
       successCard.style.display = "block";
 
-    } catch (err) {
-      alert("Bir hata oldu ❌");
+    } catch {
+      alert("Bir hata oluştu ❌");
     }
   });
 </script>

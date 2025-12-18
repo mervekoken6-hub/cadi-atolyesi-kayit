@@ -42,8 +42,6 @@
       font-size: 14px;
     }
 
-    input::placeholder { color: #bda9d6; }
-
     .info {
       background: #1a1325;
       border-radius: 12px;
@@ -51,26 +49,6 @@
       font-size: 13px;
       margin-bottom: 18px;
       line-height: 1.5;
-    }
-
-    .iban {
-      font-weight: 600;
-      color: #f9a8d4;
-      word-break: break-all;
-    }
-
-    .price {
-      text-align: center;
-      font-size: 15px;
-      margin-bottom: 16px;
-      color: #f0abfc;
-    }
-
-    .checkbox {
-      display: flex;
-      gap: 10px;
-      font-size: 13px;
-      margin-bottom: 18px;
     }
 
     button {
@@ -84,495 +62,114 @@
       cursor: pointer;
     }
 
-    button:disabled { opacity: .5; cursor: not-allowed; }
-
     .success { display: none; text-align: center; }
-    .success h2 { color: #f9a8d4; margin-bottom: 10px; }
-
-    .note { font-size: 11px; opacity: .7; text-align: center; margin-top: 14px; }
+    .success h2 { color: #f9a8d4; }
   </style>
 </head>
 <body>
 
-  <!-- FORM -->
-  <div class="form-card" id="formCard">
-    <h1>Cadı Atölyesi</h1>
-    <p class="subtitle">Atölye Kayıt Formu (Banka Havalesi)</p>
+<div class="form-card" id="formCard">
+  <h1>Cadı Atölyesi</h1>
+  <p class="subtitle">Atölye Kayıt Formu</p>
 
-    <div class="info" style="margin-bottom:24px;">
-      <strong>Haftalık Program</strong><br>
-      <span style="opacity:.9;">Her gün tek atölye türü olacak şekilde planlanır. Atölyeler 09.00–20.00 aralığındadır.</span>
-      <div style="margin-top:10px; font-size:13px; line-height:1.55;">
-        <div><strong>Pazartesi:</strong> Küçük Tuval</div>
-        <div><strong>Salı:</strong> Kil</div>
-        <div><strong>Çarşamba:</strong> Kavanoz Boyama</div>
-        <div><strong>Perşembe:</strong> Temalı / Özel</div>
-        <div><strong>Cuma:</strong> Telafi / Özel Grup</div>
-        <div><strong>Cumartesi:</strong> Küçük Tuval</div>
-        <div><strong>Pazar:</strong> Kapalı</div>
-      </div>
-    </div>
+  <form id="registerForm">
+    <label>Ad Soyad</label>
+    <input type="text" id="name" required>
 
-    <!-- KAYIT FORMU -->
-    <form id="registerForm">
-      <label>Ad Soyad</label>
-      <input type="text" required placeholder="Ad Soyad" />
+    <label>E-posta</label>
+    <input type="email" id="email" required>
 
-      <label>E-posta</label>
-      <input type="email" required placeholder="ornek@mail.com" />
+    <label>Telefon</label>
+    <input type="tel" id="phone" required>
 
-      <label>Telefon</label>
-      <input type="tel" required placeholder="05xx xxx xx xx" />
+    <label>Tarih</label>
+    <input type="date" id="dateInput" required>
 
-      <label>Katılmak İstediğiniz Tarih</label>
-      <input type="date" id="dateInput" required />
+    <label>Seans</label>
+    <select id="timeSlot" required>
+      <option value="">Seçiniz</option>
+      <option>09:00-11:30</option>
+      <option>12:00-14:30</option>
+      <option>15:00-17:30</option>
+    </select>
 
-      <label>Seans Saati</label>
-      <select id="timeSlot" required>
-        <option value="">Seçiniz</option>
-        <option value="09:00-11:30">09:00 – 11:30</option>
-        <option value="12:00-14:30">12:00 – 14:30</option>
-        <option value="15:00-17:30">15:00 – 17:30</option>
-      </select>
+    <label>Atölye</label>
+    <select id="workshop" required>
+      <option value="">Seçiniz</option>
+      <option>Kil Atölyesi</option>
+      <option>Küçük Tuval</option>
+      <option>Kavanoz Boyama</option>
+    </select>
 
-      <label>Atölye (güne göre otomatik)</label>
-       <select id="workshop" required>
-  <option value="">Atölye seçin</option>
-  <option value="kil-atolyesi">Kil Atölyesi</option>
-  <option value="kucuk-tuval">Küçük Tuval Atölyesi</option>
-  <option value="kavanoz-boyama">Kavanoz Boyama Atölyesi</option>
-</select>
+    <label>Ücret</label>
+    <input type="number" id="priceInput" required>
 
-      <div style="font-size:12px;opacity:.8;margin-top:-10px;margin-bottom:14px;">
-        Not: Program gereği günün atölyesi otomatik belirlenir.
-      </div>
+    <label>Dekont</label>
+    <input type="file" id="receipt" required>
 
-      <label>Atölye Ücreti (TL)</label>
-      <input type="number" id="priceInput" placeholder="Ücreti giriniz" required />
-      
-<label>Dekont Yükle (zorunlu)</label>
-<input type="file" id="receipt" accept="image/*,application/pdf" required />
-
-      <div class="info">
-        <strong>Banka Havalesi Bilgileri</strong><br>
-        <span style="display:block;margin-top:6px;font-weight:600;color:#fde68a;">Alıcı Adı: Merve Köken</span><br>
-        Ödeme yapılmadan kayıt onaylanmaz.<br><br>
-        <span class="iban">IBAN: TR90 0001 0090 1009 4361 3050 01</span><br>
-        Açıklama: <em>Ad Soyad – Atölye Adı</em>
-      </div>
-
-      <button type="submit" id="submitBtn" >Kaydı Gönder</button>
-    </form>
-<div class="note" style="margin-top:12px">
-⚠️ Ödeme dekontunu lütfen <b>WhatsApp üzerinden</b> gönderiniz.  
-<br>Ödeme kontrolünden sonra kaydınız onaylanacaktır.
+    <button type="submit">Kaydı Gönder</button>
+  </form>
 </div>
 
-  <!-- SUCCESS -->
-  <div class="form-card success" id="successCard">
-    <h2>✨ Başvurun Alındı</h2>
-    <p>Dekontunuz incelendikten sonra kaydınız onaylanacaktır.<br>Bilgilendirme e-posta ile yapılacaktır.</p>
-  </div>
-
-  <!-- ADMIN PANEL (aynı dosya içinde: #admin) -->
-  <div class="form-card" id="adminCard" style="display:none;">
-    <h1>Admin Panel</h1>
-    <p class="subtitle">Kayıtları Görüntüle / Onayla</p>
-
-    <div id="adminLogin">
-      <label>Admin Şifresi</label>
-      <input type="password" id="adminPass" placeholder="Şifre" />
-      <button type="button" id="adminLoginBtn">Giriş Yap</button>
-      <div class="note" style="margin-top:10px;">Not: Şifre tarayıcıda saklanır (localStorage). İstersen sonra kaldırırız.</div>
-    </div>
-
-    <div id="adminApp" style="display:none;">
-      <div class="info" style="margin-bottom:14px;">
-        <strong>Bağlantı Durumu</strong><br>
-        <span id="apiStatus">Bağlanıyor…</span>
-      </div>
-
-      <button type="button" id="refreshBtn" style="margin-bottom:14px;">Listeyi Yenile</button>
-
-      <div style="overflow:auto; border-radius:12px;">
-        <table id="recordsTable" style="width:100%; border-collapse:collapse; font-size:13px; background:#1a1325;">
-          <thead>
-            <tr>
-              <th style="text-align:left; padding:10px; border-bottom:1px solid rgba(255,255,255,0.08);">Tarih</th>
-              <th style="text-align:left; padding:10px; border-bottom:1px solid rgba(255,255,255,0.08);">Ad Soyad</th>
-              <th style="text-align:left; padding:10px; border-bottom:1px solid rgba(255,255,255,0.08);">Atölye</th>
-              <th style="text-align:left; padding:10px; border-bottom:1px solid rgba(255,255,255,0.08);">Seans</th>
-              <th style="text-align:left; padding:10px; border-bottom:1px solid rgba(255,255,255,0.08);">Ücret</th>
-              <th style="text-align:left; padding:10px; border-bottom:1px solid rgba(255,255,255,0.08);">Dekont</th>
-              <th style="text-align:left; padding:10px; border-bottom:1px solid rgba(255,255,255,0.08);">Durum</th>
-              <th style="text-align:left; padding:10px; border-bottom:1px solid rgba(255,255,255,0.08);">İşlem</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-
-      <div class="note">Bu paneli daha sonra “gerçek admin sayfası” gibi ayrı bir URL’ye de taşıyabiliriz (admin.html).</div>
-    </div>
-  </div>
+<div class="form-card success" id="successCard">
+  <h2>✨ Kayıt Gönderildi</h2>
+  <p>Başvurun başarıyla alındı 💜</p>
+</div>
 
 <script>
-  // ==========================================
-  // GOOGLE APPS SCRIPT API URL
-  // ==========================================
-  // Not: Daha önce iki kez tanımlandığı için "Identifier 'API_URL' has already been declared" hatası alıyordun.
-  // Artık TEK tanım var.
-  const API_URL = https://script.google.com/macros/s/AKfycbzlUME7xuKo-OCqmD5KNquCZVBOxr3n1gR9uPE3n2Gn3rNOQnkGqaYrpfrMKSWKv5qq/exec
-  // 2) Admin şifresi (istersen değiştir)
-  const ADMIN_PASSWORD = "cadimagic2025";
+  const API_URL = "https://script.google.com/macros/s/AKfycbzlUME7xuKo-OCqmD5KNquCZVBOxr3n1gR9uPE3n2Gn3rNOQnkGqaYrpfrMKSWKv5qq/exec";
 
-  // ==========================
-  // FORM ELEMENTLERİ
-  // ==========================
-  const dateInput = document.getElementById('dateInput');
-  const timeSlot = document.getElementById('timeSlot');
-  const workshop = document.getElementById('workshop');
-  const receipt = document.getElementById('receipt');
-  const priceInput = document.getElementById('priceInput');
-  const confirm = document.getElementById('confirm');
-  const submitBtn = document.getElementById('submitBtn');
-  const form = document.getElementById('registerForm');
+  const form = document.getElementById("registerForm");
+  const formCard = document.getElementById("formCard");
+  const successCard = document.getElementById("successCard");
 
-  // Form inputları (ad/email/tel)
-  const nameInput = form.querySelector('input[type="text"]');
-  const emailInput = form.querySelector('input[type="email"]');
-  const phoneInput = form.querySelector('input[type="tel"]');
-
-  // ==========================
-  // HAFTALIK PROGRAM
-  // ==========================
-  const schedule = {
-    1: { value: 'tuval', label: 'Küçük Tuval Atölyesi' },       // Pazartesi
-    2: { value: 'kil', label: 'Kil Atölyesi' },                // Salı
-    3: { value: 'kavanoz', label: 'Kavanoz Boyama Atölyesi' }, // Çarşamba
-    4: { value: 'temali', label: 'Temalı / Özel Atölye' },     // Perşembe
-    5: { value: 'ozel', label: 'Telafi / Özel Grup' },         // Cuma
-    6: { value: 'tuval', label: 'Küçük Tuval Atölyesi' },      // Cumartesi
-    0: { value: 'closed', label: 'Pazar Günü Kapalı' }         // Pazar
-  };
-
-  dateInput.addEventListener('change', () => {
-    if (!dateInput.value) {
-      workshop.innerHTML = '<option value="">Önce tarih seçiniz</option>';
-      workshop.disabled = true;
-      validate();
-      return;
-    }
-
-    const d = new Date(dateInput.value + 'T12:00:00');
-    const day = d.getDay();
-    const w = schedule[day];
-
-    workshop.disabled = false;
-    workshop.innerHTML = `<option value="${w.value}">${w.label}</option>`;
-    workshop.value = w.value;
-
-    // Pazar kapalı ise saat seçimini de sıfırla
-    if (w.value === 'closed') {
-      timeSlot.value = '';
-      Array.from(timeSlot.options).forEach(opt => (opt.disabled = opt.value !== ''));
-    } else {
-      Array.from(timeSlot.options).forEach(opt => (opt.disabled = false));
-    }
-
-    validate();
-  });
-
-  timeSlot.addEventListener('change', validate);
-  priceInput.addEventListener('input', validate);
-  receipt.addEventListener('change', validate);
-  confirm.addEventListener('change', validate);
-  nameInput.addEventListener('input', validate);
-  emailInput.addEventListener('input', validate);
-  phoneInput.addEventListener('input', validate);
-
-  function validate() {
-    const isClosed = workshop.value === 'closed';
-    submitBtn.disabled = !(
-      !isClosed &&
-      nameInput.value.trim() &&
-      emailInput.value.trim() &&
-      phoneInput.value.trim() &&
-      dateInput.value &&
-      timeSlot.value &&
-      workshop.value &&
-      priceInput.value &&
-      receipt.files.length &&
-      confirm.checked
-    );
-  }
-
-  // ==========================
-  // FORM SUBMIT -> GOOGLE SHEETS + DRIVE (APPS SCRIPT)
-  // ==========================
-  async function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
+  function fileToBase64(file) {
+    return new Promise((resolve) => {
       const reader = new FileReader();
-      reader.onload = () => {
-        const result = reader.result; // data:...base64,...
-        resolve(String(result).split(',')[1]);
-      };
-      reader.onerror = reject;
+      reader.onload = () => resolve(reader.result.split(",")[1]);
       reader.readAsDataURL(file);
     });
   }
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    if (!API_URL) {
-      alert('API_URL boş. Google Apps Script Web App URL’yi eklemen gerekiyor.');
-      return;
-    }
-
-    const isClosed = workshop.value === 'closed';
-    if (isClosed) {
-      alert('Pazar günü kapalıyız. Lütfen başka bir tarih seç.');
-      return;
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Gönderiliyor…';
-
     try {
-      const file = receipt.files[0];
+      const file = document.getElementById("receipt").files[0];
       const base64 = await fileToBase64(file);
 
       const payload = {
-        action: 'create',
-        name: nameInput.value.trim(),
-        email: emailInput.value.trim(),
-        phone: phoneInput.value.trim(),
-        date: dateInput.value,
-        timeSlot: timeSlot.value,
-        workshop: workshop.options[0]?.textContent || workshop.value,
-        price: Number(priceInput.value),
-        receiptName: file.name,
-        receiptMime: file.type || 'application/octet-stream',
+        action: "create",
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        date: document.getElementById("dateInput").value,
+        timeSlot: document.getElementById("timeSlot").value,
+        workshop: document.getElementById("workshop").value,
+        price: document.getElementById("priceInput").value,
         receiptBase64: base64,
+        receiptName: file.name,
+        receiptMime: file.type
       };
 
       const res = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
 
       const data = await res.json();
-      if (!data || data.ok !== true) {
-        throw new Error(data?.error || 'Kayıt oluşturulamadı');
-      }
+      if (!data.ok) throw new Error("Hata");
 
-      document.getElementById('formCard').style.display = 'none';
-      document.getElementById('successCard').style.display = 'block';
-
-    } catch (err) {
-      alert('Hata: ' + (err?.message || err));
-      submitBtn.disabled = false;
-    } finally {
-      submitBtn.textContent = 'Kaydı Gönder';
-    }
-  });
-
-  // ==========================
-  // "TEK DOSYA" ROUTER (#admin)
-  // ==========================
-  const formCard = document.getElementById('formCard');
-  const successCard = document.getElementById('successCard');
-  const adminCard = document.getElementById('adminCard');
-
-  function route() {
-    const hash = (location.hash || '').toLowerCase();
-    if (hash === '#admin') {
-      formCard.style.display = 'none';
-      successCard.style.display = 'none';
-      adminCard.style.display = 'block';
-    } else {
-      adminCard.style.display = 'none';
-      if (successCard.style.display === 'block') {
-        formCard.style.display = 'none';
-      } else {
-        formCard.style.display = 'block';
-      }
-    }
-  }
-  window.addEventListener('hashchange', route);
-  route();
-
-  // ==========================
-  // ADMIN PANEL
-  // ==========================
-  const adminLogin = document.getElementById('adminLogin');
-  const adminApp = document.getElementById('adminApp');
-  const adminPass = document.getElementById('adminPass');
-  const adminLoginBtn = document.getElementById('adminLoginBtn');
-  const refreshBtn = document.getElementById('refreshBtn');
-  const recordsTableBody = document.querySelector('#recordsTable tbody');
-  const apiStatus = document.getElementById('apiStatus');
-
-  function isAuthed() {
-    return localStorage.getItem('cadi_admin_authed') === '1';
-  }
-
-  function setAuthed(v) {
-    localStorage.setItem('cadi_admin_authed', v ? '1' : '0');
-  }
-
-  function showAdminApp() {
-    adminLogin.style.display = 'none';
-    adminApp.style.display = 'block';
-  }
-
-  function showAdminLogin() {
-    adminLogin.style.display = 'block';
-    adminApp.style.display = 'none';
-  }
-
-  adminLoginBtn.addEventListener('click', () => {
-    if (adminPass.value === ADMIN_PASSWORD) {
-      setAuthed(true);
-      showAdminApp();
-      loadRecords();
-    } else {
-      alert('Şifre yanlış');
-    }
-  });
-
-  refreshBtn.addEventListener('click', loadRecords);
-
-  async function loadRecords() {
-    if (!API_URL) {
-      apiStatus.textContent = 'API_URL boş. Apps Script URL eklenmeli.';
-      return;
-    }
-
-    apiStatus.textContent = 'Kayıtlar yükleniyor…';
-    recordsTableBody.innerHTML = '';
-
-    try {
-      const res = await fetch(API_URL + '?action=list');
-      const data = await res.json();
-      if (!data || data.ok !== true) throw new Error(data?.error || 'Liste alınamadı');
-
-      apiStatus.textContent = `Bağlandı ✅ (${data.records.length} kayıt)`;
-
-      for (const r of data.records) {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td style="padding:10px; border-bottom:1px solid rgba(255,255,255,0.06);">${escapeHtml(r.date || '')}</td>
-          <td style="padding:10px; border-bottom:1px solid rgba(255,255,255,0.06);">${escapeHtml(r.name || '')}</td>
-          <td style="padding:10px; border-bottom:1px solid rgba(255,255,255,0.06);">${escapeHtml(r.workshop || '')}</td>
-          <td style="padding:10px; border-bottom:1px solid rgba(255,255,255,0.06);">${escapeHtml(r.timeSlot || '')}</td>
-          <td style="padding:10px; border-bottom:1px solid rgba(255,255,255,0.06);">${escapeHtml(String(r.price ?? ''))}</td>
-          <td style="padding:10px; border-bottom:1px solid rgba(255,255,255,0.06);">
-            ${r.receiptUrl ? `<a href="${r.receiptUrl}" target="_blank" style="color:#f9a8d4;">Dekont</a>` : '-'}
-          </td>
-          <td style="padding:10px; border-bottom:1px solid rgba(255,255,255,0.06);">${escapeHtml(r.status || 'Bekliyor')}</td>
-          <td style="padding:10px; border-bottom:1px solid rgba(255,255,255,0.06);">
-            <button type="button" data-id="${escapeHtml(r.id)}" data-status="Onaylandı" style="padding:8px 10px; border-radius:10px; margin-right:8px;">Onayla</button>
-            <button type="button" data-id="${escapeHtml(r.id)}" data-status="Reddedildi" style="padding:8px 10px; border-radius:10px;">Reddet</button>
-          </td>
-        `;
-        recordsTableBody.appendChild(tr);
-      }
-
-      recordsTableBody.querySelectorAll('button[data-id]').forEach(btn => {
-        btn.addEventListener('click', async () => {
-          const id = btn.getAttribute('data-id');
-          const status = btn.getAttribute('data-status');
-          await updateStatus(id, status);
-          await loadRecords();
-        });
-      });
+      alert("Kayıt gönderildi 💜");
+      formCard.style.display = "none";
+      successCard.style.display = "block";
 
     } catch (err) {
-      apiStatus.textContent = 'Bağlantı hatası ❌ ' + (err?.message || err);
+      alert("Bir hata oldu ❌");
     }
-  }
-
-  async function updateStatus(id, status) {
-    if (!API_URL) return;
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'updateStatus', id, status })
-    });
-    const data = await res.json();
-    if (!data || data.ok !== true) throw new Error(data?.error || 'Güncellenemedi');
-  }
-
-  function escapeHtml(s) {
-    return String(s)
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;')
-      .replaceAll("'", '&#039;');
-  }
-
-  // Admin sayfasına geldiyse ve daha önce giriş yaptıysa otomatik aç
-  if (isAuthed()) {
-    showAdminApp();
-    if ((location.hash || '').toLowerCase() === '#admin') {
-      loadRecords();
-    }
-  } else {
-    showAdminLogin();
-  }
-
-  // ==========================
-  // BASİT SELF-TEST'LER (KONSOL)
-  // ==========================
-  // Sayfayı açınca konsola (F12) bakabilirsin: "Self-tests: OK" görmelisin.
-  (function runSelfTests() {
-    const tests = [];
-
-    tests.push({
-      name: 'API_URL tanımlı ve boş değil',
-      pass: typeof API_URL === 'string' && API_URL.trim().length > 0,
-      info: API_URL
-    });
-
-    tests.push({
-      name: 'API_URL Apps Script formatında',
-      pass: /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/i.test(API_URL.trim()),
-      info: 'Beklenen: https://script.google.com/macros/s/.../exec'
-    });
-
-    const failed = tests.filter(t => !t.pass);
-    if (failed.length) {
-      console.warn('Self-tests: FAIL', failed);
-    } else {
-      console.log('Self-tests: OK', tests.map(t => t.name));
-    }
-  })();
-  
-  <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzUME7xuKo-OQcmD5KNquCZVB0xr3n1gR9uPE3n2Gn3rNQ0nkGqaYrpfMKSWKv5qq/exec";
-</script>
-
-<script>
-document.getElementById("registerForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
-
-  const form = document.getElementById("registerForm");
-  const formData = new FormData(form);
-
-  formData.append("action", "create");
-
-  await fetch(API_URL, {
-    method: "POST",
-    body: formData
   });
-
-  alert("Kayıt gönderildi 💜");
-  form.reset();
-});
 </script>
+
 </body>
 </html>

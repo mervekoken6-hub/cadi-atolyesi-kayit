@@ -149,6 +149,9 @@
 
       <label>Atölye Ücreti (TL)</label>
       <input type="number" id="priceInput" placeholder="Ücreti giriniz" required />
+      
+<label>Dekont Yükle (zorunlu)</label>
+<input type="file" id="receipt" accept="image/*,application/pdf" required />
 
       <div class="info">
         <strong>Banka Havalesi Bilgileri</strong><br>
@@ -548,6 +551,11 @@
       console.log('Self-tests: OK', tests.map(t => t.name));
     }
   })();
+  
+  <script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzUME7xuKo-OQcmD5KNquCZVB0xr3n1gR9uPE3n2Gn3rNQ0nkGqaYrpfMKSWKv5qq/exec";
+</script>
+
 <script>
 document.getElementById("registerForm").addEventListener("submit", async function(e) {
   e.preventDefault();

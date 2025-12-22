@@ -100,17 +100,18 @@ button{
 <label>Tarih</label>
 <input type="date" id="date" required>
 
+<!-- 🔥 ÇALIŞMA SAATLERİ – NET VE GÖRÜNÜR -->
 <label>Çalışma / Seans Saati</label>
-<select id="time" required>
-  <option value="">Seçiniz</option>
-  <option value="09:00-11:30">09:00 – 11:30</option>
-  <option value="12:00-14:30">12:00 – 14:30</option>
-  <option value="15:00-17:30">15:00 – 17:30</option>
+<select id="timeSlot" required>
+  <option value="">Seans saati seçiniz</option>
+  <option value="09:00 – 11:30">09:00 – 11:30</option>
+  <option value="12:00 – 14:30">12:00 – 14:30</option>
+  <option value="15:00 – 17:30">15:00 – 17:30</option>
 </select>
 
 <label>Atölye</label>
 <select id="workshop" required>
-  <option value="">Seçiniz</option>
+  <option value="">Atölye seçiniz</option>
   <option>Küçük Tuval Atölyesi</option>
   <option>Kil Atölyesi</option>
   <option>Kavanoz Boyama Atölyesi</option>
@@ -145,8 +146,8 @@ Açıklama: <em>Ad Soyad – Atölye Adı</em><br>
 document.getElementById("registerForm").addEventListener("submit", function(e){
   e.preventDefault();
 
-  document.getElementById("formCard").style.display="none";
-  document.getElementById("successCard").style.display="block";
+  document.getElementById("formCard").style.display = "none";
+  document.getElementById("successCard").style.display = "block";
 });
 </script>
 

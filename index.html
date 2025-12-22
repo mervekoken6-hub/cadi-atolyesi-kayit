@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cadı Atölyesi | Kayıt & Banka Ödemesi</title>
+  <meta charset="UTF-8">
+  <title>Cadı Atölyesi | Kayıt Formu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
     body {
@@ -15,7 +15,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 28px;
     }
 
     .form-card {
@@ -41,7 +40,6 @@
       background: #1f172b;
       color: #fff;
       font-size: 14px;
-      box-sizing: border-box;
     }
 
     input::placeholder { color: #bda9d6; }
@@ -72,215 +70,109 @@
       cursor: pointer;
     }
 
-    button:disabled { opacity: .5; cursor: not-allowed; }
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
 
-    .success { display: none; text-align: center; }
-    .success h2 { color: #f9a8d4; margin-bottom: 10px; }
-
-    .note { font-size: 11px; opacity: .7; text-align: center; margin-top: 14px; }
-    .tiny { font-size:12px; opacity:.8; margin-top:-10px; margin-bottom:14px; }
+    .note {
+      font-size: 11px;
+      opacity: .7;
+      text-align: center;
+      margin-top: 14px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- FORM -->
-  <div class="form-card" id="formCard">
-    <h1>Cadı Atölyesi</h1>
-    <p class="subtitle">Atölye Kayıt Formu (Banka Havalesi)</p>
+<div class="form-card">
+  <h1>Cadı Atölyesi</h1>
+  <p class="subtitle">Atölye Kayıt Formu (Banka Havalesi)</p>
 
-    <!-- ✅ HAFTALIK PROGRAM (GERİ GELDİ) -->
-    <div class="info" style="margin-bottom:24px;">
-      <strong>Haftalık Program</strong><br>
-      <span style="opacity:.9;">Her gün tek atölye türü olacak şekilde planlanır. Atölyeler 09.00–20.00 aralığındadır.</span>
-      <div style="margin-top:10px; font-size:13px; line-height:1.55;">
-        <div><strong>Pazartesi:</strong> Küçük Tuval</div>
-        <div><strong>Salı:</strong> Kil</div>
-        <div><strong>Çarşamba:</strong> Kavanoz Boyama</div>
-        <div><strong>Perşembe:</strong> Temalı / Özel</div>
-        <div><strong>Cuma:</strong> Telafi / Özel Grup</div>
-        <div><strong>Cumartesi:</strong> Küçük Tuval</div>
-        <div><strong>Pazar:</strong> Kapalı</div>
-      </div>
+  <form id="registerForm">
+
+    <label>Ad Soyad</label>
+    <input type="text" name="name" required placeholder="Ad Soyad">
+
+    <label>E-posta</label>
+    <input type="email" name="email" required placeholder="ornek@mail.com">
+
+    <label>Telefon</label>
+    <input type="tel" name="phone" required placeholder="05xx xxx xx xx">
+
+    <label>Tarih</label>
+    <input type="date" name="date" required>
+
+    <label>Seans Saati</label>
+    <select name="timeSlot" required>
+      <option value="">Seçiniz</option>
+      <option>09:00 – 11:30</option>
+      <option>12:00 – 14:30</option>
+      <option>15:00 – 17:30</option>
+    </select>
+
+    <label>Atölye</label>
+    <select name="workshop" required>
+      <option>Küçük Tuval Atölyesi</option>
+      <option>Kil Atölyesi</option>
+      <option>Kavanoz Boyama Atölyesi</option>
+    </select>
+
+    <label>Atölye Ücreti (TL)</label>
+    <input type="number" name="price" required placeholder="Örn: 500">
+
+    <label>Dekont Yükle (zorunlu)</label>
+    <input type="file" name="receipt" accept="image/*,application/pdf" required>
+
+    <div class="info">
+      <strong>Banka Havalesi Bilgileri</strong><br><br>
+      Alıcı Adı: <strong>Merve Köken</strong><br>
+      <span class="iban">IBAN: TR90 0001 0090 1009 4361 3050 01</span><br><br>
+      Açıklama: <em>Ad Soyad – Atölye Adı</em><br>
+      <small>Ödeme yapılmadan kayıt onaylanmaz.</small>
     </div>
 
-    <form id="registerForm">
-      <label>Ad Soyad</label>
-      <input type="text" id="name" required placeholder="Ad Soyad" />
+    <button type="submit" id="submitBtn">Kaydı Gönder</button>
+  </form>
 
-      <label>E-posta</label>
-      <input type="email" id="email" required placeholder="ornek@mail.com" />
-
-      <label>Telefon</label>
-      <input type="tel" id="phone" required placeholder="05xx xxx xx xx" />
-
-      <label>Katılmak İstediğiniz Tarih</label>
-      <input type="date" id="dateInput" required />
-
-      <label>Seans Saati</label>
-      <select id="timeSlot" required>
-        <option value="">Seçiniz</option>
-        <option value="09:00-11:30">09:00 – 11:30</option>
-        <option value="12:00-14:30">12:00 – 14:30</option>
-        <option value="15:00-17:30">15:00 – 17:30</option>
-      </select>
-
-      <label>Atölye (güne göre otomatik)</label>
-      <select id="workshop" required>
-        <option value="">Önce tarih seçiniz</option>
-      </select>
-      <div class="tiny">Not: Program gereği günün atölyesi otomatik belirlenir.</div>
-
-      <label>Atölye Ücreti (TL)</label>
-      <input type="number" id="priceInput" placeholder="Ücreti giriniz" required />
-
-      <label>Dekont Yükle (zorunlu)</label>
-      <input type="file" id="receipt" accept="image/*,application/pdf" required />
-
-      <!-- ✅ IBAN + İSİM (GERİ GELDİ) -->
-      <div class="info">
-        <strong>Banka Havalesi Bilgileri</strong><br>
-        <span style="display:block;margin-top:6px;font-weight:600;color:#fde68a;">Alıcı Adı: Merve Köken</span><br>
-        Ödeme yapılmadan kayıt onaylanmaz.<br><br>
-        <span class="iban">IBAN: TR90 0001 0090 1009 4361 3050 01</span><br>
-        Açıklama: <em>Ad Soyad – Atölye Adı</em>
-      </div>
-
-      <button type="submit" id="submitBtn">Kaydı Gönder</button>
-    </form>
-
-    <div class="note" style="margin-top:12px">
-      ⚠️ Ödeme dekontunu lütfen <b>WhatsApp üzerinden</b> gönderiniz.  
-      <br>Ödeme kontrolünden sonra kaydınız onaylanacaktır.
-    </div>
+  <div class="note">
+    ⚠️ Ödeme dekontunu lütfen WhatsApp üzerinden de iletiniz.
   </div>
-
-  <!-- SUCCESS -->
-  <div class="form-card success" id="successCard">
-    <h2>✨ Başvurun Alındı</h2>
-    <p>Dekontunuz incelendikten sonra kaydınız onaylanacaktır.<br>Bilgilendirme e-posta ile yapılacaktır.</p>
-  </div>
+</div>
 
 <script>
-  // ✅ 1) API URL (MUTLAKA TIRNAK İÇİNDE)
-  const API_URL = "https://script.google.com/macros/s/AKfycbzlUME7xuKo-OCqmD5KNquCZVBOxr3n1gR9uPE3n2Gn3rNOQnkGqaYrpfrMKSWKv5qq/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzUME7xuKo-OCqmD5KNquCZVBOxr3n1gR9uPE3n2Gn3rNOQnkGqaYrpfrMKSWKv5qq/exec";
 
-  // ✅ 2) Haftalık program (tarihe göre otomatik atölye)
-  const schedule = {
-    1: 'Küçük Tuval Atölyesi',      // Pazartesi
-    2: 'Kil Atölyesi',              // Salı
-    3: 'Kavanoz Boyama Atölyesi',   // Çarşamba
-    4: 'Temalı / Özel Atölye',      // Perşembe
-    5: 'Telafi / Özel Grup',        // Cuma
-    6: 'Küçük Tuval Atölyesi',      // Cumartesi
-    0: 'Pazar Günü Kapalı'          // Pazar
-  };
+document.getElementById("registerForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
 
-  const dateInput = document.getElementById('dateInput');
-  const workshop = document.getElementById('workshop');
-  const submitBtn = document.getElementById('submitBtn');
+  const form = this;
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.textContent = "Gönderiliyor...";
 
-  dateInput.addEventListener('change', () => {
-    workshop.innerHTML = '';
-    if (!dateInput.value) {
-      workshop.innerHTML = '<option value="">Önce tarih seçiniz</option>';
-      return;
-    }
-    const d = new Date(dateInput.value + 'T12:00:00');
-    const day = d.getDay();
-    const label = schedule[day] || '';
+  try {
+    const formData = new FormData(form);
+    formData.append("action", "create");
 
-    if (day === 0) {
-      workshop.innerHTML = `<option value="closed">${label}</option>`;
-    } else {
-      workshop.innerHTML = `<option value="${label}">${label}</option>`;
-    }
-  });
-
-  // ✅ 3) Dosyayı base64'e çevir
-  function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(String(reader.result).split(',')[1]);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
+    const res = await fetch(API_URL, {
+      method: "POST",
+      body: formData
     });
+
+    if (!res.ok) throw new Error("Bağlantı hatası");
+
+    alert("Kayıt gönderildi 💜");
+    form.reset();
+
+  } catch (err) {
+    alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Kaydı Gönder";
   }
-
-  // ✅ 4) Tek submit — JSON ile gönder (Apps Script uyumlu)
-  document.getElementById("registerForm").addEventListener("submit", async function(e){
-    e.preventDefault();
-
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const date = document.getElementById('dateInput').value;
-    const timeSlot = document.getElementById('timeSlot').value;
-    const workshopVal = document.getElementById('workshop').value;
-    const price = document.getElementById('priceInput').value;
-    const receiptEl = document.getElementById('receipt');
-    const file = receiptEl.files && receiptEl.files[0];
-
-    if (workshopVal === 'closed') {
-      alert('Pazar günü kapalıyız. Lütfen başka bir tarih seç.');
-      return;
-    }
-
-    if (!API_URL || !API_URL.startsWith('https://script.google.com/macros/s/')) {
-      alert('API_URL hatalı. Apps Script Web App URL’yi doğru yapıştırmalısın.');
-      return;
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Gönderiliyor…';
-
-    try {
-      const base64 = await fileToBase64(file);
-
-      const payload = {
-        action: "create",
-        name,
-        email,
-        phone,
-        date,
-        timeSlot,
-        workshop: workshopVal,
-        price: Number(price),
-        receiptName: file.name,
-        receiptMime: file.type || "application/octet-stream",
-        receiptBase64: base64
-      };
-
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-
-      // ✅ cevap json değilse de hata mesajını görelim
-      const text = await res.text();
-      let data = null;
-      try { data = JSON.parse(text); } catch {}
-
-      if (!res.ok || !data || data.ok !== true) {
-        console.error('Sunucu cevabı:', text);
-        throw new Error(data?.error || "Sunucu kayıt oluşturamadı");
-      }
-
-      alert("Kayıt gönderildi 💜");
-      document.getElementById('formCard').style.display = 'none';
-      document.getElementById('successCard').style.display = 'block';
-      this.reset();
-
-    } catch (err) {
-      console.error(err);
-      alert("Bir hata oluştu ❌\n\nDetay: " + (err?.message || err));
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Kaydı Gönder';
-      return;
-    }
-
-    submitBtn.textContent = 'Kaydı Gönder';
-  });
+});
 </script>
 
 </body>

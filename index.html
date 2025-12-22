@@ -54,12 +54,18 @@ button{
   font-size:15px;
   cursor:pointer;
 }
-.success{
-  display:none;
-  text-align:center;
-}
+.success{display:none;text-align:center}
 .success h2{color:#f9a8d4}
-.note{font-size:11px;opacity:.7;text-align:center;margin-top:14px}
+.warning{
+  margin-top:16px;
+  padding:14px;
+  border-radius:12px;
+  background:#2a1320;
+  color:#fde68a;
+  font-weight:600;
+  text-align:center;
+  border:1px solid #f9a8d4;
+}
 </style>
 </head>
 
@@ -70,7 +76,7 @@ button{
 <p class="subtitle">Atölye Kayıt Formu (Banka Havalesi)</p>
 
 <div class="info">
-<strong>Haftalık Program</strong><br><br>
+<strong>🗓 Haftalık Program</strong><br><br>
 <b>Pazartesi:</b> Küçük Tuval<br>
 <b>Salı:</b> Kil<br>
 <b>Çarşamba:</b> Kavanoz Boyama<br>
@@ -93,7 +99,7 @@ button{
 <label>Tarih</label>
 <input type="date" id="date" required>
 
-<label>Seans</label>
+<label>Seans Saati</label>
 <select id="time" required>
 <option value="">Seçiniz</option>
 <option>09:00 – 11:30</option>
@@ -112,7 +118,7 @@ button{
 <input type="number" id="price" required>
 
 <div class="info">
-<strong>Banka Havalesi Bilgileri</strong><br><br>
+<strong>🏦 Banka Havalesi Bilgileri</strong><br><br>
 <b>Alıcı Adı:</b> Merve Köken<br>
 <b class="iban">IBAN: TR90 0001 0090 1009 4361 3050 01</b><br><br>
 Açıklama: <em>Ad Soyad – Atölye Adı</em><br>
@@ -122,8 +128,9 @@ Açıklama: <em>Ad Soyad – Atölye Adı</em><br>
 <button type="submit">Kaydı Gönder</button>
 </form>
 
-<div class="note">
-⚠️ Ödeme dekontunu lütfen <b>WhatsApp üzerinden</b> gönderiniz.
+<div class="warning">
+⚠️ ÖDEME DEKONTUNU KAYITTAN SONRA  
+<b>WHATSAPP ÜZERİNDEN</b> GÖNDERMENİZ ZORUNLUDUR
 </div>
 </div>
 
@@ -140,13 +147,13 @@ document.getElementById("registerForm").addEventListener("submit", async e=>{
 
   const payload = {
     action:"create",
-    name: name.value,
-    email: email.value,
-    phone: phone.value,
-    date: date.value,
-    time: time.value,
-    workshop: workshop.value,
-    price: price.value
+    name:name.value,
+    email:email.value,
+    phone:phone.value,
+    date:date.value,
+    time:time.value,
+    workshop:workshop.value,
+    price:price.value
   };
 
   await fetch(API_URL,{
@@ -155,11 +162,10 @@ document.getElementById("registerForm").addEventListener("submit", async e=>{
     body:JSON.stringify(payload)
   });
 
-  document.getElementById("formCard").style.display="none";
-  document.getElementById("successCard").style.display="block";
+  formCard.style.display="none";
+  successCard.style.display="block";
 });
 </script>
 
 </body>
 </html>
-

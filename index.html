@@ -19,12 +19,12 @@ body{
 .form-card{
   background:rgba(20,15,30,.95);
   border-radius:18px;
-  padding:34px;
+  padding:32px;
   width:100%;
   max-width:460px;
   box-shadow:0 25px 50px rgba(0,0,0,.6);
 }
-h1{text-align:center;margin-bottom:4px}
+h1{text-align:center;margin-bottom:6px}
 .subtitle{text-align:center;font-size:14px;opacity:.85;margin-bottom:20px}
 label{font-size:13px;margin-bottom:6px;display:block}
 input,select{
@@ -62,9 +62,9 @@ button{
   border-radius:12px;
   background:#2a1320;
   color:#fde68a;
-  font-weight:600;
+  font-weight:700;
   text-align:center;
-  border:1px solid #f9a8d4;
+  border:2px solid #f9a8d4;
 }
 </style>
 </head>
@@ -73,7 +73,7 @@ button{
 
 <div class="form-card" id="formCard">
 <h1>Cadı Atölyesi</h1>
-<p class="subtitle">Atölye Kayıt Formu (Banka Havalesi)</p>
+<p class="subtitle">Atölye Kayıt Formu</p>
 
 <div class="info">
 <strong>🗓 Haftalık Program</strong><br><br>
@@ -87,6 +87,7 @@ button{
 </div>
 
 <form id="registerForm">
+
 <label>Ad Soyad</label>
 <input type="text" id="name" required>
 
@@ -99,19 +100,20 @@ button{
 <label>Tarih</label>
 <input type="date" id="date" required>
 
-<label>Seans Saati</label>
+<label>Çalışma / Seans Saati</label>
 <select id="time" required>
-<option value="">Seçiniz</option>
-<option>09:00 – 11:30</option>
-<option>12:00 – 14:30</option>
-<option>15:00 – 17:30</option>
+  <option value="">Seçiniz</option>
+  <option value="09:00-11:30">09:00 – 11:30</option>
+  <option value="12:00-14:30">12:00 – 14:30</option>
+  <option value="15:00-17:30">15:00 – 17:30</option>
 </select>
 
 <label>Atölye</label>
 <select id="workshop" required>
-<option>Küçük Tuval Atölyesi</option>
-<option>Kil Atölyesi</option>
-<option>Kavanoz Boyama Atölyesi</option>
+  <option value="">Seçiniz</option>
+  <option>Küçük Tuval Atölyesi</option>
+  <option>Kil Atölyesi</option>
+  <option>Kavanoz Boyama Atölyesi</option>
 </select>
 
 <label>Atölye Ücreti (TL)</label>
@@ -119,7 +121,7 @@ button{
 
 <div class="info">
 <strong>🏦 Banka Havalesi Bilgileri</strong><br><br>
-<b>Alıcı Adı:</b> Merve Köken<br>
+<b>Alıcı:</b> Merve Köken<br>
 <b class="iban">IBAN: TR90 0001 0090 1009 4361 3050 01</b><br><br>
 Açıklama: <em>Ad Soyad – Atölye Adı</em><br>
 Ödeme yapılmadan kayıt onaylanmaz.
@@ -129,41 +131,22 @@ Açıklama: <em>Ad Soyad – Atölye Adı</em><br>
 </form>
 
 <div class="warning">
-⚠️ ÖDEME DEKONTUNU KAYITTAN SONRA  
+⚠️ ÖDEME DEKONTUNU<br>
 <b>WHATSAPP ÜZERİNDEN</b> GÖNDERMENİZ ZORUNLUDUR
 </div>
 </div>
 
 <div class="form-card success" id="successCard">
 <h2>✨ Kayıt Gönderildi 💜</h2>
-<p>Ödeme kontrolünden sonra sizinle iletişime geçilecektir.</p>
+<p>En kısa sürede sizinle iletişime geçilecektir.</p>
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzlUME7xuKo-OCqmD5KNquCZVBOxr3n1gR9uPE3n2Gn3rNOQnkGqaYrpfrMKSWKv5qq/exec";
-
-document.getElementById("registerForm").addEventListener("submit", async e=>{
+document.getElementById("registerForm").addEventListener("submit", function(e){
   e.preventDefault();
 
-  const payload = {
-    action:"create",
-    name:name.value,
-    email:email.value,
-    phone:phone.value,
-    date:date.value,
-    time:time.value,
-    workshop:workshop.value,
-    price:price.value
-  };
-
-  await fetch(API_URL,{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify(payload)
-  });
-
-  formCard.style.display="none";
-  successCard.style.display="block";
+  document.getElementById("formCard").style.display="none";
+  document.getElementById("successCard").style.display="block";
 });
 </script>
 

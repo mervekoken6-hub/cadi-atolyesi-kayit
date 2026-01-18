@@ -24,20 +24,7 @@ body{
   max-width:520px;
   box-shadow:0 25px 50px rgba(0,0,0,.6);
 }
-h1{
-  text-align:center;
-  margin-bottom:4px;
-  font-weight:700;
-}
-.subtitle{
-  text-align:center;
-  font-size:15px;
-  font-weight:600;
-  opacity:.9;
-  margin-bottom:22px;
-}
 label{
-  font-size:14px;
   font-weight:700;
   margin-bottom:6px;
   display:block;
@@ -50,86 +37,16 @@ input,select{
   margin-bottom:18px;
   background:#1f172b;
   color:#fff;
-  font-size:15px;
-  font-weight:600;
 }
-
-/* PROGRAM */
-.program{
-  background:linear-gradient(180deg,#1a1325,#120d1c);
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:26px;
-  font-size:14px;
-  font-weight:600;
-  line-height:1.7;
-}
-.program h3{
-  text-align:center;
-  margin-bottom:16px;
-  font-size:16px;
-  font-weight:800;
-  color:#e9d5ff;
-}
-.program .group{
-  margin-bottom:14px;
-}
-.program .group strong{
-  display:block;
-  margin-bottom:4px;
-  color:#fbcfe8;
-}
-.program .time{
-  color:#ddd6fe;
-  font-size:13.5px;
-}
-
-/* BANKA */
-.info{
-  background:#1a1325;
-  border-radius:14px;
-  padding:16px;
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:20px;
-  line-height:1.7;
-}
-
-/* UYARI */
-.alert-box{
-  margin-top:22px;
-  padding:18px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#3a2a00,#6b4a00);
-  border:1px solid #facc15;
-  color:#fde68a;
-  text-align:center;
-  font-size:15px;
-  font-weight:700;
-  line-height:1.7;
-}
-.alert-box span{
-  display:block;
-  font-size:22px;
-  margin-bottom:6px;
-}
-
-/* BUTON */
 button{
   width:100%;
   padding:16px;
   border-radius:18px;
   border:none;
-  margin-top:18px;
   background:linear-gradient(90deg,#7c3aed,#8b5cf6,#a78bfa);
   color:#fff;
   font-size:16px;
   font-weight:800;
-  letter-spacing:.3px;
-  cursor:pointer;
-}
-button:hover{
-  opacity:.95;
 }
 </style>
 </head>
@@ -137,53 +54,28 @@ button:hover{
 <body>
 
 <div class="form-card">
-<h1>Cadı Atölyesi</h1>
-<div class="subtitle">Atölye Kayıt Formu</div>
+<h2 style="text-align:center">Cadı Atölyesi</h2>
 
-<div class="program">
-<h3>🌙 Haftalık Program</h3>
-
-<div class="group">
-<strong>🎨 Küçük Tuval Resim Workshop’u</strong>
-<div class="time">Pazartesi & Perşembe</div>
-</div>
-
-<div class="group">
-<strong>🏺 Kil Atölyesi</strong>
-<div class="time">Salı & Cuma</div>
-</div>
-
-<div class="group">
-<strong>🔮 Kavanoz Boyama Atölyesi</strong>
-<div class="time">Çarşamba & Cumartesi</div>
-</div>
-
-<div class="group">
-<strong>⏰ Seans Saatleri (Tüm Günler)</strong>
-<div class="time">
-09.30–11.00 • 11.20–12.50 • 14.10–15.40 • 16.00–17.30<br>
-Cumartesi ek seans: 17.50–19.20
-</div>
-</div>
-</div>
-
-<form id="registerForm">
+<form
+  method="POST"
+  action="https://script.google.com/macros/s/AKfycbwCoc-vxyBvIz--3QMlLXxHmOxF-1KVWBkKlIXHP_tJz47FGY9CvWecpoZpTJTyEpHWuA/exec"
+  target="hidden_iframe"
+>
 
 <label>Ad Soyad</label>
-<input required>
+<input name="adSoyad" required>
 
 <label>E-posta</label>
-<input type="email" required>
+<input type="email" name="email" required>
 
 <label>Telefon (WhatsApp)</label>
-<input type="tel" required>
+<input type="tel" name="telefon" required>
 
 <label>Tarih</label>
-<input type="date" required>
+<input type="date" name="tarih" required>
 
 <label>Seans Saati</label>
-<select required>
-  <option value="">Saat seçiniz</option>
+<select name="seans" required>
   <option>09.30 – 11.00</option>
   <option>11.20 – 12.50</option>
   <option>14.10 – 15.40</option>
@@ -192,60 +84,18 @@ Cumartesi ek seans: 17.50–19.20
 </select>
 
 <label>Ücret</label>
-<input type="number" value="500" required>
-
-<div class="info">
-<strong>Banka Havalesi Bilgileri</strong><br>
-Alıcı: <strong>Merve Köken</strong><br>
-IBAN: <strong style="letter-spacing:1px;">TR78 0004 6012 1488 8000 1122 48</strong><br>
-Açıklama: <em>Ad Soyad – Atölye Adı</em>
-</div>
+<input type="number" name="ucret" value="500" required>
 
 <button type="submit">Kaydı Gönder</button>
 </form>
 
-<div class="alert-box">
-  <span>⚠️</span>
-  Ödeme dekontunu WhatsApp üzerinden <strong>0530 916 44 25</strong> gönderiniz.<br>
-  Ödeme kontrolünden sonra kaydınız tamamen alınmış olacaktır.
-</div>
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 
 </div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwCoc-vxyBvIz--3QMlLXxHmOxF-1KVWBkKlIXHP_tJz47FGY9CvWecpoZpTJTyEpHWuA/exec";
-
-document.getElementById("registerForm").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  const form = e.target;
-
-  const data = {
-    adSoyad: form.querySelector('input[required]').value,
-    email: form.querySelector('input[type="email"]').value,
-    telefon: form.querySelector('input[type="tel"]').value,
-    tarih: form.querySelector('input[type="date"]').value,
-    seans: form.querySelector('select').value,
-    ucret: form.querySelector('input[type="number"]').value
-  };
-
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(res => {
-    if(res.status === "ok"){
-      alert("Kayıt başarıyla alındı 💜");
-      form.reset();
-    } else {
-      alert("Bir hata oluştu. Lütfen tekrar deneyin.");
-    }
-  })
-  .catch(() => {
-    alert("Bağlantı hatası oluştu.");
-  });
+document.querySelector("form").addEventListener("submit", function(){
+  alert("Kayıt başarıyla alındı 💜");
 });
 </script>
 

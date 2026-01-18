@@ -3,67 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Cadı Atölyesi | Kayıt Formu</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body{
-  margin:0;
-  font-family:'Segoe UI',sans-serif;
-  background:radial-gradient(circle at top,#2b1c3a,#0e0b14);
-  color:#f5eaff;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.form-card{
-  background:rgba(20,15,30,.92);
-  border-radius:18px;
-  padding:32px;
-  width:100%;
-  max-width:460px;
-  box-shadow:0 25px 50px rgba(0,0,0,.65);
-}
-h1{text-align:center;margin-bottom:6px}
-.subtitle{text-align:center;font-size:14px;opacity:.85;margin-bottom:20px}
-label{font-size:13px;display:block;margin-bottom:6px}
-input,select{
-  width:100%;
-  padding:12px;
-  border-radius:12px;
-  border:none;
-  margin-bottom:16px;
-  background:#1f172b;
-  color:#fff;
-}
-.info{
-  background:#1a1325;
-  border-radius:12px;
-  padding:14px;
-  font-size:13px;
-  margin-bottom:20px;
-  line-height:1.6;
-}
-button{
-  width:100%;
-  padding:15px;
-  border-radius:14px;
-  border:none;
-  background:linear-gradient(135deg,#a855f7,#ec4899);
-  color:#fff;
-  font-size:15px;
-  cursor:pointer;
-}
-.warning{
-  margin-top:12px;
-  font-size:13px;
-  color:#fde68a;
-  font-weight:600;
-  text-align:center;<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<title>Cadı Atölyesi | Kayıt Formu</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -212,7 +151,7 @@ button:disabled{opacity:.5}
 <div class="info">
 <strong>Banka Havalesi Bilgileri</strong><br>
 Alıcı: <strong>Merve Köken</strong><br>
-IBAN: <strong>TR90 0001 0090 1009 4361 3050 01</strong><br>
+IBAN: <strong style="letter-spacing:1px;">TR78 0004 6012 1488 8000 1122 48</strong><br>
 Açıklama: <em>Ad Soyad – Atölye Adı</em>
 </div>
 
@@ -228,12 +167,11 @@ Açıklama: <em>Ad Soyad – Atölye Adı</em>
 </div>
 
 <script>
-document.getElementById("registerForm").addEventListener("submit",e=>{
-e.preventDefault();
-alert("Kayıt alındı 💜");
+document.getElementById("registerForm").addEventListener("submit", e => {
+  e.preventDefault();
+  alert("Kayıt alındı 💜");
 });
 </script>
 
 </body>
 </html>
-

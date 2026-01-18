@@ -16,6 +16,8 @@ body{
   align-items:center;
   min-height:100vh;
 }
+
+/* FORM */
 .form-card{
   background:rgba(20,15,30,.95);
   border-radius:20px;
@@ -24,11 +26,7 @@ body{
   max-width:520px;
   box-shadow:0 25px 50px rgba(0,0,0,.6);
 }
-h1{
-  text-align:center;
-  margin-bottom:4px;
-  font-weight:700;
-}
+h1{text-align:center;margin-bottom:4px;}
 .subtitle{
   text-align:center;
   font-size:15px;
@@ -71,18 +69,9 @@ input,select{
   font-weight:800;
   color:#e9d5ff;
 }
-.program .group{
-  margin-bottom:14px;
-}
-.program .group strong{
-  display:block;
-  margin-bottom:4px;
-  color:#fbcfe8;
-}
-.program .time{
-  color:#ddd6fe;
-  font-size:13.5px;
-}
+.program .group{margin-bottom:14px;}
+.program .group strong{display:block;color:#fbcfe8;}
+.program .time{color:#ddd6fe;font-size:13.5px;}
 
 /* BANKA */
 .info{
@@ -108,11 +97,7 @@ input,select{
   font-weight:700;
   line-height:1.7;
 }
-.alert-box span{
-  display:block;
-  font-size:22px;
-  margin-bottom:6px;
-}
+.alert-box span{display:block;font-size:22px;margin-bottom:6px;}
 
 /* BUTON */
 button{
@@ -125,13 +110,52 @@ button{
   color:#fff;
   font-size:16px;
   font-weight:800;
-  letter-spacing:.3px;
   cursor:pointer;
+}
+
+/* KAYIT ALINDI EKRANI */
+.success-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(10,8,20,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+.success-box{
+  background:linear-gradient(180deg,#0f0b1a,#120d1c);
+  border-radius:24px;
+  padding:40px 30px;
+  width:90%;
+  max-width:420px;
+  text-align:center;
+  box-shadow:0 30px 60px rgba(0,0,0,.7);
+}
+.success-box h2{
+  font-size:22px;
+  margin-bottom:14px;
+}
+.success-box p{
+  font-size:15px;
+  line-height:1.6;
+  opacity:.9;
 }
 </style>
 </head>
 
 <body>
+
+<!-- KAYIT ALINDI EKRANI -->
+<div class="success-overlay" id="successScreen">
+  <div class="success-box">
+    <h2>✨ Kayıt Alındı</h2>
+    <p>
+      Ödeme kontrolünden sonra<br>
+      kaydınız tamamen alınmış olacaktır.
+    </p>
+  </div>
+</div>
 
 <div class="form-card">
 <h1>Cadı Atölyesi</h1>
@@ -156,10 +180,10 @@ button{
 </div>
 
 <div class="group">
-<strong>⏰ Seans Saatleri (Tüm Günler)</strong>
+<strong>⏰ Seans Saatleri</strong>
 <div class="time">
 09.30–11.00 • 11.20–12.50 • 14.10–15.40 • 16.00–17.30<br>
-Cumartesi ek seans: 17.50–19.20
+Cumartesi: 17.50–19.20
 </div>
 </div>
 </div>
@@ -168,9 +192,9 @@ Cumartesi ek seans: 17.50–19.20
   method="POST"
   action="https://script.google.com/macros/s/AKfycbyLC0BDDAPUza1FtExhEF_29wR2CYp7QhPPLWSLftAfh8jN9FwQEzoqac0nc1PYJamg2w/exec"
   target="hidden_iframe"
+  onsubmit="showSuccess()"
 >
 
-<!-- 🔴 ZORUNLU -->
 <input type="hidden" name="type" value="cadi">
 
 <label>Ad Soyad</label>
@@ -187,11 +211,11 @@ Cumartesi ek seans: 17.50–19.20
 
 <label>Seans Saati</label>
 <select name="seans" required>
-  <option value="09.30 – 11.00">09.30 – 11.00</option>
-  <option value="11.20 – 12.50">11.20 – 12.50</option>
-  <option value="14.10 – 15.40">14.10 – 15.40</option>
-  <option value="16.00 – 17.30">16.00 – 17.30</option>
-  <option value="17.50 – 19.20">17.50 – 19.20</option>
+  <option>09.30 – 11.00</option>
+  <option>11.20 – 12.50</option>
+  <option>14.10 – 15.40</option>
+  <option>16.00 – 17.30</option>
+  <option>17.50 – 19.20</option>
 </select>
 
 <label>Ücret</label>
@@ -218,9 +242,11 @@ Açıklama: <em>Ad Soyad – Atölye Adı</em>
 </div>
 
 <script>
-document.querySelector("form").addEventListener("submit", function(){
-  alert("Kayıt alındı 💜");
-});
+function showSuccess(){
+  setTimeout(()=>{
+    document.getElementById("successScreen").style.display="flex";
+  },300);
+}
 </script>
 
 </body>

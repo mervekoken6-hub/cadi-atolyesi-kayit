@@ -56,7 +56,7 @@ button{
 }
 button:disabled{opacity:.5}
 
-/* 🌟 FOTOĞRAFA BENZEYEN UYARI KUTUSU */
+/* 🌟 ORTALANMIŞ UYARI KUTUSU */
 .alert-box{
   margin-top:20px;
   padding:16px 18px;
@@ -70,13 +70,12 @@ button:disabled{opacity:.5}
   color:#ffe8a3;
   font-size:14px;
   line-height:1.6;
-  display:flex;
-  gap:10px;
-  align-items:flex-start;
+  text-align:center;
 }
 .alert-box span{
-  font-size:18px;
-  line-height:1;
+  display:block;
+  font-size:20px;
+  margin-bottom:6px;
 }
 </style>
 </head>
@@ -169,13 +168,11 @@ Açıklama: <em>Ad Soyad – Atölye Adı</em>
 
 </form>
 
-<!-- ⚠️ YENİ UYARI TASARIMI -->
+<!-- ⚠️ ORTALANMIŞ METİNLİ UYARI -->
 <div class="alert-box">
   <span>⚠️</span>
-  <div>
-    <b>Ödeme dekontunu WhatsApp üzerinden gönderiniz.</b><br>
-    Ödeme kontrolünden sonra kaydınız onaylanır.
-  </div>
+  <b>Ödeme dekontunu WhatsApp üzerinden gönderiniz.</b><br>
+  Ödeme kontrolünden sonra kaydınız onaylanır.
 </div>
 
 </div>

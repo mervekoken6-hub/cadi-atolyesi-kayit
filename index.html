@@ -21,7 +21,7 @@ body{
   border-radius:20px;
   padding:32px;
   width:100%;
-  max-width:480px;
+  max-width:520px;
   box-shadow:0 25px 50px rgba(0,0,0,.6);
 }
 h1{
@@ -42,7 +42,7 @@ label{
   margin-bottom:6px;
   display:block;
 }
-input,select,textarea{
+input,select{
   width:100%;
   padding:14px;
   border-radius:14px;
@@ -53,8 +53,34 @@ input,select,textarea{
   font-size:15px;
   font-weight:600;
 }
-textarea{resize:none;height:110px;}
 
+/* 🌙 PROGRAM KARTI */
+.program{
+  background:linear-gradient(180deg,#1a1325,#120d1c);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:26px;
+  font-size:14px;
+  font-weight:600;
+  line-height:1.7;
+}
+.program h3{
+  text-align:center;
+  margin-bottom:14px;
+  font-size:16px;
+  font-weight:800;
+  color:#e9d5ff;
+}
+.program .day{
+  margin-bottom:14px;
+}
+.program .day strong{
+  display:block;
+  margin-bottom:4px;
+  color:#fbcfe8;
+}
+
+/* 💳 BANKA */
 .info{
   background:#1a1325;
   border-radius:14px;
@@ -65,7 +91,7 @@ textarea{resize:none;height:110px;}
   line-height:1.7;
 }
 
-/* 🔔 FOTOĞRAFA BİREBİR UYARI */
+/* ⚠️ UYARI */
 .alert-box{
   margin-top:22px;
   padding:18px;
@@ -84,13 +110,13 @@ textarea{resize:none;height:110px;}
   margin-bottom:6px;
 }
 
-/* 🔮 MOR TONDA AYNI STİL BUTON */
+/* 🔮 BUTON */
 button{
   width:100%;
   padding:16px;
   border-radius:18px;
   border:none;
-  margin-top:22px;
+  margin-top:18px;
   background:linear-gradient(135deg,#7c3aed,#9333ea,#a855f7);
   color:#fff;
   font-size:16px;
@@ -98,7 +124,6 @@ button{
   letter-spacing:.3px;
   cursor:pointer;
   box-shadow:0 10px 25px rgba(168,85,247,.45);
-  transition:.25s;
 }
 button:hover{
   transform:translateY(-1px);
@@ -112,6 +137,60 @@ button:hover{
 <div class="form-card">
 <h1>Cadı Atölyesi</h1>
 <div class="subtitle">Atölye Kayıt Formu</div>
+
+<!-- 🌙 HAFTALIK PROGRAM -->
+<div class="program">
+<h3>🌙 Haftalık Program</h3>
+
+<div class="day">
+<strong>🎨 Pazartesi | Küçük Tuval Resim Workshop’u</strong>
+09.30 – 11.00<br>
+11.20 – 12.50<br>
+14.10 – 15.40<br>
+16.00 – 17.30
+</div>
+
+<div class="day">
+<strong>🪴 Salı | Kil Atölyesi</strong>
+09.30 – 11.00<br>
+11.20 – 12.50<br>
+14.10 – 15.40<br>
+16.00 – 17.30
+</div>
+
+<div class="day">
+<strong>🫙 Çarşamba | Kavanoz Boyama Atölyesi</strong>
+09.30 – 11.00<br>
+11.20 – 12.50<br>
+14.10 – 15.40<br>
+16.00 – 17.30
+</div>
+
+<div class="day">
+<strong>🎨 Perşembe | Küçük Tuval Resim Workshop’u</strong>
+09.30 – 11.00<br>
+11.20 – 12.50<br>
+14.10 – 15.40<br>
+16.00 – 17.30
+</div>
+
+<div class="day">
+<strong>🪴 Cuma | Kil Atölyesi</strong>
+09.30 – 11.00<br>
+11.20 – 12.50<br>
+14.10 – 15.40<br>
+16.00 – 17.30
+</div>
+
+<div class="day">
+<strong>🫙 Cumartesi | Kavanoz Boyama Atölyesi</strong>
+09.30 – 11.00<br>
+11.20 – 12.50<br>
+14.10 – 15.40<br>
+16.00 – 17.30<br>
+17.50 – 19.20
+</div>
+</div>
 
 <form id="registerForm">
 
@@ -140,9 +219,6 @@ button:hover{
 <label>Ücret</label>
 <input type="number" value="500" required>
 
-<label>Not</label>
-<textarea></textarea>
-
 <div class="info">
 <strong>Banka Havalesi Bilgileri</strong><br>
 Alıcı: <strong>Merve Köken</strong><br>
@@ -151,7 +227,6 @@ Açıklama: <em>Ad Soyad – Atölye Adı</em>
 </div>
 
 <button type="submit">Kaydı Gönder</button>
-
 </form>
 
 <div class="alert-box">

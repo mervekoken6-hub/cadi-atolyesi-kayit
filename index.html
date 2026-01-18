@@ -55,15 +55,28 @@ button{
   cursor:pointer;
 }
 button:disabled{opacity:.5}
-.warning{
-  margin-top:14px;
-  padding:12px;
-  border-radius:12px;
-  background:rgba(255,0,100,.12);
-  color:#ffd6e7;
-  font-size:13px;
-  text-align:center;
-  font-weight:600;
+
+/* 🌟 FOTOĞRAFA BENZEYEN UYARI KUTUSU */
+.alert-box{
+  margin-top:20px;
+  padding:16px 18px;
+  border-radius:14px;
+  background:linear-gradient(
+    135deg,
+    rgba(255,215,0,0.18),
+    rgba(255,165,0,0.10)
+  );
+  border:1px solid rgba(255,215,0,0.45);
+  color:#ffe8a3;
+  font-size:14px;
+  line-height:1.6;
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+.alert-box span{
+  font-size:18px;
+  line-height:1;
 }
 </style>
 </head>
@@ -156,9 +169,13 @@ Açıklama: <em>Ad Soyad – Atölye Adı</em>
 
 </form>
 
-<div class="warning">
-⚠️ Ödeme dekontunu lütfen <b>WhatsApp üzerinden</b> gönderiniz.<br>
-Ödeme kontrolünden sonra kaydınız onaylanır.
+<!-- ⚠️ YENİ UYARI TASARIMI -->
+<div class="alert-box">
+  <span>⚠️</span>
+  <div>
+    <b>Ödeme dekontunu WhatsApp üzerinden gönderiniz.</b><br>
+    Ödeme kontrolünden sonra kaydınız onaylanır.
+  </div>
 </div>
 
 </div>

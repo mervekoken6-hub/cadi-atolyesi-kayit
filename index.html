@@ -170,6 +170,9 @@ Cumartesi ek seans: 17.50–19.20
   target="hidden_iframe"
 >
 
+<!-- 🔴 ZORUNLU: hangi form olduğunu Apps Script’e söyler -->
+<input type="hidden" name="type" value="cadi">
+
 <label>Ad Soyad</label>
 <input name="adSoyad" required>
 
@@ -184,11 +187,11 @@ Cumartesi ek seans: 17.50–19.20
 
 <label>Seans Saati</label>
 <select name="seans" required>
-  <option>09.30 – 11.00</option>
-  <option>11.20 – 12.50</option>
-  <option>14.10 – 15.40</option>
-  <option>16.00 – 17.30</option>
-  <option>17.50 – 19.20</option>
+  <option value="09.30 – 11.00">09.30 – 11.00</option>
+  <option value="11.20 – 12.50">11.20 – 12.50</option>
+  <option value="14.10 – 15.40">14.10 – 15.40</option>
+  <option value="16.00 – 17.30">16.00 – 17.30</option>
+  <option value="17.50 – 19.20">17.50 – 19.20</option>
 </select>
 
 <label>Ücret</label>

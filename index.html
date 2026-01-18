@@ -54,7 +54,7 @@ input,select{
   font-weight:600;
 }
 
-/* 🌙 PROFESYONEL PROGRAM */
+/* PROGRAM */
 .program{
   background:linear-gradient(180deg,#1a1325,#120d1c);
   border-radius:18px;
@@ -84,7 +84,7 @@ input,select{
   font-size:13.5px;
 }
 
-/* 💳 BANKA */
+/* BANKA */
 .info{
   background:#1a1325;
   border-radius:14px;
@@ -95,7 +95,7 @@ input,select{
   line-height:1.7;
 }
 
-/* ⚠️ UYARI */
+/* UYARI */
 .alert-box{
   margin-top:22px;
   padding:18px;
@@ -114,7 +114,7 @@ input,select{
   margin-bottom:6px;
 }
 
-/* 🟣 BUTON – SADE MOR GEÇİŞ */
+/* BUTON */
 button{
   width:100%;
   padding:16px;
@@ -140,7 +140,6 @@ button:hover{
 <h1>Cadı Atölyesi</h1>
 <div class="subtitle">Atölye Kayıt Formu</div>
 
-<!-- 🌙 PROFESYONEL PROGRAM -->
 <div class="program">
 <h3>🌙 Haftalık Program</h3>
 
@@ -214,9 +213,39 @@ Açıklama: <em>Ad Soyad – Atölye Adı</em>
 </div>
 
 <script>
-document.getElementById("registerForm").addEventListener("submit", e => {
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwCoc-vxyBvIz--3QMlLXxHmOxF-1KVWBkKlIXHP_tJz47FGY9CvWecpoZpTJTyEpHWuA/exec";
+
+document.getElementById("registerForm").addEventListener("submit", function(e){
   e.preventDefault();
-  alert("Kayıt alındı 💜");
+
+  const form = e.target;
+
+  const data = {
+    adSoyad: form.querySelector('input[required]').value,
+    email: form.querySelector('input[type="email"]').value,
+    telefon: form.querySelector('input[type="tel"]').value,
+    tarih: form.querySelector('input[type="date"]').value,
+    seans: form.querySelector('select').value,
+    ucret: form.querySelector('input[type="number"]').value
+  };
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(res => {
+    if(res.status === "ok"){
+      alert("Kayıt başarıyla alındı 💜");
+      form.reset();
+    } else {
+      alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+    }
+  })
+  .catch(() => {
+    alert("Bağlantı hatası oluştu.");
+  });
 });
 </script>
 

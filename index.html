@@ -90,6 +90,22 @@ input,select{
   margin-bottom:18px;
 }
 
+/* 🔐 18 YAŞ ONAY */
+.age-check{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:13px;
+  margin-bottom:16px;
+}
+.age-check input{
+  width:auto;
+  margin-top:3px;
+}
+.age-check span{
+  line-height:1.5;
+}
+
 button{
   width:100%;
   padding:16px;
@@ -117,7 +133,6 @@ button{
   text-align:center;
   padding:40px 20px;
 }
-
 .success h2{
   margin-bottom:12px;
 }
@@ -174,12 +189,21 @@ IBAN: <strong>TR78 0004 6012 1488 8000 1122 48</strong><br>
 Açıklama: <em>Ad Soyad – Atölye Adı</em>
 </div>
 
-<!-- 🔔 DUYURU -->
 <div class="announcement">
 <strong>📢 Duyuru</strong><br>
 Atölye ücretleri seansa göre değişiklik gösterebilir.<br>
 Kayıt öncesinde fiyat bilgisi için<br>
 WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
+</div>
+
+<!-- 🔐 18 YAŞ ONAY KUTUSU -->
+<div class="age-check">
+  <input type="checkbox" id="ageConfirm" required>
+  <span>
+    <label for="ageConfirm">
+      18 yaş ve üzerindeyim, kaydı kendi rızamla oluşturuyorum.
+    </label>
+  </span>
 </div>
 
 <button type="submit">Kaydı Gönder</button>
@@ -209,7 +233,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
     method:"POST",
     body:formData
   })
-  .then(()=> {
+  .then(()=>{
     formArea.innerHTML = `
       <div class="success">
         <h2>✨ Kayıt Alındı</h2>

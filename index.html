@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Cadı Atölyesi | Kayıt Formu</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
@@ -11,191 +11,136 @@ body{
   font-family:'Segoe UI',sans-serif;
   background:radial-gradient(circle at top,#2b1c3a,#0e0b14);
   color:#f5eaff;
-  display:flex;
-  justify-content:center;
-  align-items:center;
   min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-/* FORM */
 .form-card{
   background:rgba(20,15,30,.95);
   border-radius:20px;
-  padding:32px;
+  padding:34px;
   width:100%;
-  max-width:520px;
-  box-shadow:0 25px 50px rgba(0,0,0,.6);
+  max-width:480px;
+  box-shadow:0 25px 50px rgba(0,0,0,.65);
 }
-h1{text-align:center;margin-bottom:4px;}
+
+h1{
+  text-align:center;
+  margin-bottom:6px;
+  font-weight:700;
+}
+
 .subtitle{
   text-align:center;
-  font-size:15px;
-  font-weight:600;
-  opacity:.9;
+  font-size:14px;
+  opacity:.85;
   margin-bottom:22px;
 }
+
 label{
-  font-size:14px;
-  font-weight:700;
-  margin-bottom:6px;
+  font-size:13px;
+  font-weight:600;
   display:block;
+  margin-bottom:6px;
 }
+
 input,select{
   width:100%;
-  padding:14px;
-  border-radius:14px;
+  padding:12px;
+  border-radius:12px;
   border:none;
-  margin-bottom:18px;
+  margin-bottom:16px;
   background:#1f172b;
   color:#fff;
-  font-size:15px;
-  font-weight:600;
 }
 
-/* PROGRAM */
-.program{
-  background:linear-gradient(180deg,#1a1325,#120d1c);
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:26px;
-  font-size:14px;
-  font-weight:600;
-  line-height:1.7;
-}
-.program h3{
-  text-align:center;
-  margin-bottom:16px;
-  font-size:16px;
-  font-weight:800;
-  color:#e9d5ff;
-}
-.program .group{margin-bottom:14px;}
-.program .group strong{display:block;color:#fbcfe8;}
-.program .time{color:#ddd6fe;font-size:13.5px;}
-
-/* BANKA */
 .info{
   background:#1a1325;
   border-radius:14px;
   padding:16px;
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:20px;
-  line-height:1.7;
+  font-size:13px;
+  line-height:1.6;
+  margin-bottom:22px;
 }
 
-/* UYARI */
-.alert-box{
-  margin-top:22px;
-  padding:18px;
+.program{
+  background:linear-gradient(135deg,#1f1730,#120d1f);
   border-radius:16px;
-  background:linear-gradient(135deg,#3a2a00,#6b4a00);
-  border:1px solid #facc15;
-  color:#fde68a;
-  text-align:center;
-  font-size:15px;
-  font-weight:700;
+  padding:18px;
+  font-size:13px;
   line-height:1.7;
+  margin-bottom:24px;
 }
-.alert-box span{display:block;font-size:22px;margin-bottom:6px;}
 
-/* BUTON */
+.program strong{
+  display:block;
+  margin-bottom:8px;
+  font-size:14px;
+}
+
+.announcement{
+  background:rgba(168,85,247,.12);
+  border:1px solid rgba(168,85,247,.35);
+  border-radius:14px;
+  padding:14px;
+  font-size:13px;
+  text-align:center;
+  margin-bottom:18px;
+}
+
 button{
   width:100%;
   padding:16px;
-  border-radius:18px;
+  border-radius:16px;
   border:none;
-  margin-top:18px;
-  background:linear-gradient(90deg,#7c3aed,#8b5cf6,#a78bfa);
+  background:linear-gradient(135deg,#7c3aed,#ec4899);
   color:#fff;
-  font-size:16px;
-  font-weight:800;
+  font-size:15px;
+  font-weight:700;
   cursor:pointer;
 }
 
-/* KAYIT ALINDI EKRANI */
-.success-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(10,8,20,.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-}
-.success-box{
-  background:linear-gradient(180deg,#0f0b1a,#120d1c);
-  border-radius:24px;
-  padding:40px 30px;
-  width:90%;
-  max-width:420px;
+.warning{
+  margin-top:16px;
+  padding:14px;
+  border-radius:14px;
+  background:rgba(255,193,7,.15);
+  color:#fde68a;
+  font-size:13px;
   text-align:center;
-  box-shadow:0 30px 60px rgba(0,0,0,.7);
+  font-weight:600;
 }
-.success-box h2{
-  font-size:22px;
-  margin-bottom:14px;
+
+.success{
+  text-align:center;
+  padding:40px 20px;
 }
-.success-box p{
-  font-size:15px;
-  line-height:1.6;
-  opacity:.9;
+
+.success h2{
+  margin-bottom:12px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- KAYIT ALINDI EKRANI -->
-<div class="success-overlay" id="successScreen">
-  <div class="success-box">
-    <h2>✨ Kayıt Alındı</h2>
-    <p>
-      Ödeme kontrolünden sonra<br>
-      kaydınız tamamen alınmış olacaktır.
-    </p>
-  </div>
-</div>
+<div class="form-card" id="formArea">
 
-<div class="form-card">
 <h1>Cadı Atölyesi</h1>
 <div class="subtitle">Atölye Kayıt Formu</div>
 
 <div class="program">
-<h3>🌙 Haftalık Program</h3>
-
-<div class="group">
-<strong>🎨 Küçük Tuval Resim Workshop’u</strong>
-<div class="time">Pazartesi & Perşembe</div>
+<strong>🌙 Haftalık Program</strong>
+🎨 Pazartesi & Perşembe — Küçük Tuval Resim Workshop’u<br>
+🏺 Salı & Cuma — Kil Atölyesi<br>
+🔮 Çarşamba & Cumartesi — Kavanoz Boyama Atölyesi<br><br>
+Seanslar: 09.30 – 11.00 / 11.20 – 12.50 / 14.10 – 15.40 / 16.00 – 17.30<br>
+Cumartesi ek seans: 17.50 – 19.20
 </div>
 
-<div class="group">
-<strong>🏺 Kil Atölyesi</strong>
-<div class="time">Salı & Cuma</div>
-</div>
-
-<div class="group">
-<strong>🔮 Kavanoz Boyama Atölyesi</strong>
-<div class="time">Çarşamba & Cumartesi</div>
-</div>
-
-<div class="group">
-<strong>⏰ Seans Saatleri</strong>
-<div class="time">
-09.30–11.00 • 11.20–12.50 • 14.10–15.40 • 16.00–17.30<br>
-Cumartesi: 17.50–19.20
-</div>
-</div>
-</div>
-
-<form
-  method="POST"
-  action="https://script.google.com/macros/s/AKfycbyLC0BDDAPUza1FtExhEF_29wR2CYp7QhPPLWSLftAfh8jN9FwQEzoqac0nc1PYJamg2w/exec"
-  target="hidden_iframe"
-  onsubmit="showSuccess()"
->
-
-<input type="hidden" name="type" value="cadi">
+<form id="registerForm">
 
 <label>Ad Soyad</label>
 <input name="adSoyad" required>
@@ -211,14 +156,15 @@ Cumartesi: 17.50–19.20
 
 <label>Seans Saati</label>
 <select name="seans" required>
-  <option>09.30 – 11.00</option>
-  <option>11.20 – 12.50</option>
-  <option>14.10 – 15.40</option>
-  <option>16.00 – 17.30</option>
-  <option>17.50 – 19.20</option>
+<option value="">Seçiniz</option>
+<option>09.30 – 11.00</option>
+<option>11.20 – 12.50</option>
+<option>14.10 – 15.40</option>
+<option>16.00 – 17.30</option>
+<option>17.50 – 19.20</option>
 </select>
 
-<label>Ücret</label>
+<label>Ücret (TL)</label>
 <input type="number" name="ucret" value="500" required>
 
 <div class="info">
@@ -228,25 +174,53 @@ IBAN: <strong>TR78 0004 6012 1488 8000 1122 48</strong><br>
 Açıklama: <em>Ad Soyad – Atölye Adı</em>
 </div>
 
+<!-- 🔔 DUYURU -->
+<div class="announcement">
+<strong>📢 Duyuru</strong><br>
+Atölye ücretleri seansa göre değişiklik gösterebilir.<br>
+Kayıt öncesinde fiyat bilgisi için<br>
+WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
+</div>
+
 <button type="submit">Kaydı Gönder</button>
+
 </form>
 
-<iframe name="hidden_iframe" style="display:none;"></iframe>
-
-<div class="alert-box">
-  <span>⚠️</span>
-  Ödeme dekontunu WhatsApp üzerinden <strong>0530 916 44 25</strong> gönderiniz.<br>
-  Ödeme kontrolünden sonra kaydınız tamamen alınmış olacaktır.
+<div class="warning">
+⚠️ Ödeme dekontunu WhatsApp üzerinden <strong>0530 916 44 25</strong> gönderiniz.<br>
+Ödeme kontrolünden sonra kaydınız tamamen alınmış olacaktır.
 </div>
 
 </div>
 
 <script>
-function showSuccess(){
-  setTimeout(()=>{
-    document.getElementById("successScreen").style.display="flex";
-  },300);
-}
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyLC0BDDAPUza1FtExhEF_29wR2CYp7QhPPLWSLftAfh8jN9FwQEzoqac0nc1PYJamg2w/exec";
+
+document.getElementById("registerForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const form = e.target;
+  const formArea = document.getElementById("formArea");
+
+  const formData = new FormData(form);
+  formData.append("type","cadi");
+
+  fetch(SCRIPT_URL,{
+    method:"POST",
+    body:formData
+  })
+  .then(()=> {
+    formArea.innerHTML = `
+      <div class="success">
+        <h2>✨ Kayıt Alındı</h2>
+        <p>Ödeme kontrolünden sonra<br>kaydınız tamamen alınmış olacaktır.</p>
+      </div>
+    `;
+  })
+  .catch(()=>{
+    alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+  });
+});
 </script>
 
 </body>

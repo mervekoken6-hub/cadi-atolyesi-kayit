@@ -161,33 +161,42 @@ WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyLC0BDDAPUza1FtExhEF_29wR2CYp7QhPPLWSLftAfh8jN9FwQEzoqac0nc1PYJamg2w/exec";
 
-document.getElementById("registerForm").addEventListener("submit", function(e){
+document.getElementById("registerForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
-  const formData = new FormData(e.target);
+  const f = e.target;
 
-  // Admin panel & Apps Script ile UYUMLU alanlar
-  formData.append("type", "cadi");
-  formData.append("note", "");
-  formData.append("lang", "tr");
+  const payload = {
+    type: "cadi",
+    name: f.name.value.trim(),
+    email: f.email.value.trim(),
+    phone: f.phone.value.trim(),
+    date: f.date.value,
+    session: f.session.value,
+    price: f.price.value,
+    note: "",
+    lang: "tr"
+  };
 
-  fetch(SCRIPT_URL,{
+  const res = await fetch(SCRIPT_URL,{
     method:"POST",
-    body:formData
-  })
-  .then(r=>r.json())
-  .then(res=>{
-    if(!res.ok){
-      alert(res.error || "Bu seans dolmuştur.");
-      return;
-    }
-    document.getElementById("formArea").innerHTML = `
-      <div class="success">
-        <h2>✨ Kayıt Alındı</h2>
-        <p>Ödeme kontrolünden sonra<br>kaydınız tamamen alınmış olacaktır.</p>
-      </div>
-    `;
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify(payload)
   });
+
+  const json = await res.json();
+
+  if(!json.ok){
+    alert(json.error || "Kayıt alınamadı.");
+    return;
+  }
+
+  document.getElementById("formArea").innerHTML = `
+    <div class="success">
+      <h2>✨ Kayıt Alındı</h2>
+      <p>Ödeme kontrolünden sonra<br>kaydınız tamamen alınmış olacaktır.</p>
+    </div>
+  `;
 });
 </script>
 

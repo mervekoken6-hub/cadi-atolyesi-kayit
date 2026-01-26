@@ -159,7 +159,7 @@ WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
 </div>
 
 <script>
-const SCRIPT_URL = "BURAYA_YENI_EXEC_URL_YAPISTIR";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmfEVNxdhnUmiGtzF4HO37ICvArzsk-Dl8Jf5sYuVO_JihsLqX1IHL9SbuwWg6SZH1uA/exec";
 
 document.getElementById("registerForm").addEventListener("submit", async function(e){
   e.preventDefault();
@@ -178,15 +178,15 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     lang: "tr"
   };
 
-  try{
-    const res = await fetch(SCRIPT_URL,{
-      method:"POST",
-      body: JSON.stringify(payload) // ❗ HEADER YOK
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify(payload)
     });
 
     const json = await res.json();
 
-    if(!json.ok){
+    if (!json.ok) {
       alert(json.error || "Kayıt alınamadı.");
       return;
     }
@@ -197,8 +197,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         <p>Ödeme kontrolünden sonra<br>kaydınız tamamen alınmış olacaktır.</p>
       </div>
     `;
-
-  }catch(err){
+  } catch (err) {
     alert("Bağlantı hatası. Lütfen tekrar deneyin.");
   }
 });

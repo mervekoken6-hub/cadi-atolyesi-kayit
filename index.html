@@ -86,7 +86,6 @@ button{
   font-size:13px;
   text-align:center;
   font-weight:600;
-  display:none;
 }
 .success{text-align:center;padding:40px 20px;}
 </style>
@@ -148,80 +147,47 @@ WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
 <span>18 yaş ve üzerindeyim, kaydı kendi rızamla oluşturuyorum.</span>
 </div>
 
-<button type="submit" id="submitBtn">Kaydı Gönder</button>
+<button type="submit">Kaydı Gönder</button>
 
 </form>
 
-<div class="warning" id="warningBox"></div>
+<div class="warning">
+⚠️ Ödeme dekontunu WhatsApp üzerinden <strong>0530 916 44 25</strong> gönderiniz.<br>
+Ödeme kontrolünden sonra kaydınız tamamen alınmış olacaktır.
+</div>
 
 </div>
 
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmfEVNxdhnUmiGtzF4HO37ICvArzsk-Dl8Jf5sYuVO_JihsLqX1IHL9SbuwWg6SZH1uA/exec";
 
-const form = document.getElementById("registerForm");
-const dateInput = form.date;
-const sessionInput = form.session;
-const submitBtn = document.getElementById("submitBtn");
-const warningBox = document.getElementById("warningBox");
-
-/* ---- KONTENJAN KONTROL (JSONP) ---- */
-function checkQuota(){
-  if(!dateInput.value || !sessionInput.value) return;
-
-  const cb = "cb_" + Date.now();
-  window[cb] = function(res){
-    if(res && res.full){
-      warningBox.textContent = "⚠️ Bu seansın kontenjanı dolmuştur. Lütfen başka bir seans seçiniz.";
-      warningBox.style.display = "block";
-      submitBtn.disabled = true;
-    }else{
-      warningBox.style.display = "none";
-      submitBtn.disabled = false;
-    }
-    delete window[cb];
-    script.remove();
-  };
-
-  const script = document.createElement("script");
-  script.src =
-    SCRIPT_URL +
-    "?check=1" +
-    "&date=" + encodeURIComponent(dateInput.value) +
-    "&session=" + encodeURIComponent(sessionInput.value) +
-    "&callback=" + cb;
-
-  document.body.appendChild(script);
-}
-
-dateInput.addEventListener("change", checkQuota);
-sessionInput.addEventListener("change", checkQuota);
-
-/* ---- FORM SUBMIT ---- */
-form.addEventListener("submit", async function(e){
+document.getElementById("registerForm").addEventListener("submit", async function(e){
   e.preventDefault();
-  if(submitBtn.disabled) return;
+
+  const f = e.target;
 
   const payload = {
     type: "cadi",
-    name: form.name.value.trim(),
-    email: form.email.value.trim(),
-    phone: form.phone.value.trim(),
-    date: form.date.value,
-    session: form.session.value,
-    price: form.price.value,
+    name: f.name.value.trim(),
+    email: f.email.value.trim(),
+    phone: f.phone.value.trim(),
+    date: f.date.value,
+    session: f.session.value,
+    price: f.price.value,
     note: "",
     lang: "tr"
   };
 
-  try{
-    const res = await fetch(SCRIPT_URL,{
-      method:"POST",
-      body:JSON.stringify(payload)
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
     });
 
     const json = await res.json();
-    if(!json.ok){
+
+    if (!json.ok) {
       alert(json.error || "Kayıt alınamadı.");
       return;
     }
@@ -229,10 +195,14 @@ form.addEventListener("submit", async function(e){
     document.getElementById("formArea").innerHTML = `
       <div class="success">
         <h2>✨ Kayıt Alındı</h2>
-        <p>Ödeme kontrolünden sonra<br>kaydınız tamamen alınmış olacaktır.</p>
+        <p>
+          Ödeme dekontunu WhatsApp üzerinden<br>
+          <strong>0530 916 44 25</strong> numarasına gönderiniz.<br><br>
+          Ödeme kontrolünden sonra kaydınız tamamen alınacaktır.
+        </p>
       </div>
     `;
-  }catch{
+  } catch (err) {
     alert("Bağlantı hatası. Lütfen tekrar deneyin.");
   }
 });

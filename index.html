@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* (CSS AYNEN KALDI) */
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
@@ -37,6 +36,36 @@ input,select{
   background:#1f172b;
   color:#fff;
 }
+.program{
+  background:linear-gradient(135deg,#1f1730,#120d1f);
+  border-radius:16px;
+  padding:18px;
+  font-size:13px;
+  line-height:1.7;
+  margin-bottom:24px;
+}
+.program strong{display:block;margin-bottom:8px;font-size:14px;}
+.program .quota{
+  margin-top:10px;
+  font-size:12.5px;
+  opacity:.85;
+}
+.announcement{
+  background:rgba(168,85,247,.12);
+  border:1px solid rgba(168,85,247,.35);
+  border-radius:14px;
+  padding:14px;
+  font-size:13px;
+  text-align:center;
+  margin-bottom:18px;
+}
+.age-check{
+  display:flex;
+  gap:10px;
+  font-size:13px;
+  margin-bottom:16px;
+}
+.age-check input{width:auto;margin-top:3px;}
 button{
   width:100%;
   padding:16px;
@@ -46,17 +75,18 @@ button{
   color:#fff;
   font-size:15px;
   font-weight:700;
+  cursor:pointer;
 }
-button:disabled{opacity:.5}
-.quota-warning{
-  display:none;
-  margin:12px 0;
-  padding:12px;
-  border-radius:12px;
-  background:rgba(239,68,68,.18);
-  color:#fecaca;
-  font-weight:700;
+.warning{
+  margin-top:16px;
+  padding:14px;
+  border-radius:14px;
+  background:rgba(255,193,7,.15);
+  color:#fde68a;
+  font-size:13px;
   text-align:center;
+  font-weight:600;
+  display:none;
 }
 .success{text-align:center;padding:40px 20px;}
 </style>
@@ -69,6 +99,16 @@ button:disabled{opacity:.5}
 <h1>Cadı Atölyesi</h1>
 <div class="subtitle">Atölye Kayıt Formu</div>
 
+<div class="program">
+<strong>🌙 Haftalık Program</strong>
+🎨 Pazartesi & Perşembe — Küçük Tuval Resim Workshop’u<br>
+🏺 Salı & Cuma — Kil Atölyesi<br>
+🔮 Çarşamba & Cumartesi — Kavanoz Boyama Atölyesi<br><br>
+Seanslar: 09.30 – 11.00 / 11.20 – 12.50 / 14.10 – 15.40 / 16.00 – 17.30<br>
+Cumartesi ek seans: 17.50 – 19.20
+<div class="quota">✨ Her seans en fazla <strong>5 kişiliktir</strong>.</div>
+</div>
+
 <form id="registerForm">
 
 <label>Ad Soyad</label>
@@ -77,13 +117,13 @@ button:disabled{opacity:.5}
 <label>E-posta</label>
 <input type="email" name="email" required>
 
-<label>Telefon</label>
-<input name="phone" required>
+<label>Telefon (WhatsApp)</label>
+<input type="tel" name="phone" required>
 
 <label>Tarih</label>
 <input type="date" name="date" required>
 
-<label>Seans</label>
+<label>Seans Saati</label>
 <select name="session" required>
   <option value="">Seçiniz</option>
   <option>09.30 – 11.00</option>
@@ -93,16 +133,26 @@ button:disabled{opacity:.5}
   <option>17.50 – 19.20</option>
 </select>
 
-<div id="quotaWarning" class="quota-warning">
-⚠️ Bu seansın kontenjanı dolmuştur.
+<label>Ücret (TL)</label>
+<input type="number" name="price" value="500" required>
+
+<div class="announcement">
+<strong>📢 Duyuru</strong><br>
+Atölye ücretleri seansa göre değişiklik gösterebilir.<br>
+Kayıt öncesinde fiyat bilgisi için<br>
+WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
 </div>
 
-<label>Ücret</label>
-<input name="price" value="500" required>
+<div class="age-check">
+<input type="checkbox" required>
+<span>18 yaş ve üzerindeyim, kaydı kendi rızamla oluşturuyorum.</span>
+</div>
 
 <button type="submit" id="submitBtn">Kaydı Gönder</button>
 
 </form>
+
+<div class="warning" id="warningBox"></div>
 
 </div>
 
@@ -110,24 +160,23 @@ button:disabled{opacity:.5}
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmfEVNxdhnUmiGtzF4HO37ICvArzsk-Dl8Jf5sYuVO_JihsLqX1IHL9SbuwWg6SZH1uA/exec";
 
 const form = document.getElementById("registerForm");
-const dateInput = form.querySelector('[name="date"]');
-const sessionInput = form.querySelector('[name="session"]');
-const warningEl = document.getElementById("quotaWarning");
+const dateInput = form.date;
+const sessionInput = form.session;
 const submitBtn = document.getElementById("submitBtn");
+const warningBox = document.getElementById("warningBox");
 
-/* 🔥 JSONP KONTENJAN KONTROL */
-function checkQuotaJSONP(){
-  const date = dateInput.value;
-  const session = sessionInput.value;
-  if(!date || !session) return;
+/* ---- KONTENJAN KONTROL (JSONP) ---- */
+function checkQuota(){
+  if(!dateInput.value || !sessionInput.value) return;
 
   const cb = "cb_" + Date.now();
   window[cb] = function(res){
-    if(res.full){
-      warningEl.style.display = "block";
+    if(res && res.full){
+      warningBox.textContent = "⚠️ Bu seansın kontenjanı dolmuştur. Lütfen başka bir seans seçiniz.";
+      warningBox.style.display = "block";
       submitBtn.disabled = true;
     }else{
-      warningEl.style.display = "none";
+      warningBox.style.display = "none";
       submitBtn.disabled = false;
     }
     delete window[cb];
@@ -138,43 +187,54 @@ function checkQuotaJSONP(){
   script.src =
     SCRIPT_URL +
     "?check=1" +
-    "&date=" + encodeURIComponent(date) +
-    "&session=" + encodeURIComponent(session) +
+    "&date=" + encodeURIComponent(dateInput.value) +
+    "&session=" + encodeURIComponent(sessionInput.value) +
     "&callback=" + cb;
 
   document.body.appendChild(script);
 }
 
-dateInput.addEventListener("change", checkQuotaJSONP);
-sessionInput.addEventListener("change", checkQuotaJSONP);
+dateInput.addEventListener("change", checkQuota);
+sessionInput.addEventListener("change", checkQuota);
 
-/* FORM GÖNDER */
-form.addEventListener("submit", async e=>{
+/* ---- FORM SUBMIT ---- */
+form.addEventListener("submit", async function(e){
   e.preventDefault();
   if(submitBtn.disabled) return;
 
   const payload = {
-    name: form.name.value,
-    email: form.email.value,
-    phone: form.phone.value,
+    type: "cadi",
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    phone: form.phone.value.trim(),
     date: form.date.value,
     session: form.session.value,
-    price: form.price.value
+    price: form.price.value,
+    note: "",
+    lang: "tr"
   };
 
-  const res = await fetch(SCRIPT_URL,{
-    method:"POST",
-    body: JSON.stringify(payload)
-  });
-  const json = await res.json();
+  try{
+    const res = await fetch(SCRIPT_URL,{
+      method:"POST",
+      body:JSON.stringify(payload)
+    });
 
-  if(!json.ok){
-    alert(json.error);
-    return;
+    const json = await res.json();
+    if(!json.ok){
+      alert(json.error || "Kayıt alınamadı.");
+      return;
+    }
+
+    document.getElementById("formArea").innerHTML = `
+      <div class="success">
+        <h2>✨ Kayıt Alındı</h2>
+        <p>Ödeme kontrolünden sonra<br>kaydınız tamamen alınmış olacaktır.</p>
+      </div>
+    `;
+  }catch{
+    alert("Bağlantı hatası. Lütfen tekrar deneyin.");
   }
-
-  document.getElementById("formArea").innerHTML =
-    "<div class='success'>✨ Kayıt Alındı</div>";
 });
 </script>
 

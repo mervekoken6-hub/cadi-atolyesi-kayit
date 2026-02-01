@@ -148,7 +148,6 @@ WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
 </div>
 
 <button type="submit">Kaydı Gönder</button>
-
 </form>
 
 <div class="warning">
@@ -161,12 +160,31 @@ WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmfEVNxdhnUmiGtzF4HO37ICvArzsk-Dl8Jf5sYuVO_JihsLqX1IHL9SbuwWg6SZH1uA/exec";
 
-document.getElementById("registerForm").addEventListener("submit", async function(e){
+document.getElementById("registerForm").addEventListener("submit", function(e){
   e.preventDefault();
 
   const f = e.target;
+  const cb = "cb_" + Date.now();
 
-  const payload = {
+  window[cb] = function(res){
+    delete window[cb];
+    document.body.removeChild(script);
+
+    if (!res.ok) {
+      alert(res.error);
+      return;
+    }
+
+    document.getElementById("formArea").innerHTML = `
+      <div class="success">
+        <h2>✨ Kayıt Alındı</h2>
+        <p>Ödeme kontrolünden sonra<br>kaydınız tamamen alınmış olacaktır.</p>
+      </div>
+    `;
+  };
+
+  const params = new URLSearchParams({
+    callback: cb,
     type: "cadi",
     name: f.name.value.trim(),
     email: f.email.value.trim(),
@@ -176,45 +194,11 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     price: f.price.value,
     note: "",
     lang: "tr"
-  };
+  });
 
-  try {
-    const res = await fetch(SCRIPT_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload),
-      redirect: "follow"
-    });
-
-    const text = await res.text();
-    let json;
-
-    try {
-      json = JSON.parse(text);
-    } catch {
-      alert("Sunucudan geçersiz yanıt alındı.");
-      return;
-    }
-
-    if (!json.ok) {
-      alert(json.error || "Bu seans için kayıt alınamıyor.");
-      return;
-    }
-
-    document.getElementById("formArea").innerHTML = `
-      <div class="success">
-        <h2>✨ Kayıt Alındı</h2>
-        <p>
-          ⚠️ Ödeme dekontunu WhatsApp üzerinden <strong>0530 916 44 25</strong> gönderiniz.<br>
-          Ödeme kontrolünden sonra kaydınız tamamen alınmış olacaktır.
-        </p>
-      </div>
-    `;
-  } catch (err) {
-    alert("Bağlantı hatası. Lütfen tekrar deneyin.");
-  }
+  const script = document.createElement("script");
+  script.src = SCRIPT_URL + "?" + params.toString();
+  document.body.appendChild(script);
 });
 </script>
 

@@ -125,11 +125,11 @@ Cumartesi ek seans: 17.50 – 19.20
 <label>Seans Saati</label>
 <select name="session" required>
   <option value="">Seçiniz</option>
-  <option value="s1">09.30 – 11.00</option>
-  <option value="s2">11.20 – 12.50</option>
-  <option value="s3">14.10 – 15.40</option>
-  <option value="s4">16.00 – 17.30</option>
-  <option value="s5">17.50 – 19.20</option>
+  <option>09.30 – 11.00</option>
+  <option>11.20 – 12.50</option>
+  <option>14.10 – 15.40</option>
+  <option>16.00 – 17.30</option>
+  <option>17.50 – 19.20</option>
 </select>
 
 <label>Ücret (TL)</label>
@@ -172,7 +172,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     email: f.email.value.trim(),
     phone: f.phone.value.trim(),
     date: f.date.value,
-    session: f.session.value, // s1–s5 gider
+    session: f.session.value,
     price: f.price.value,
     note: "",
     lang: "tr"
@@ -181,21 +181,35 @@ document.getElementById("registerForm").addEventListener("submit", async functio
   try {
     const res = await fetch(SCRIPT_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload),
+      redirect: "follow"
     });
 
-    const json = await res.json();
+    const text = await res.text();
+    let json;
+
+    try {
+      json = JSON.parse(text);
+    } catch {
+      alert("Sunucudan geçersiz yanıt alındı.");
+      return;
+    }
 
     if (!json.ok) {
-      alert(json.error || "Kayıt alınamadı.");
+      alert(json.error || "Bu seans için kayıt alınamıyor.");
       return;
     }
 
     document.getElementById("formArea").innerHTML = `
       <div class="success">
         <h2>✨ Kayıt Alındı</h2>
-        <p>Ödeme kontrolünden sonra<br>kaydınız tamamen alınmış olacaktır.</p>
+        <p>
+          ⚠️ Ödeme dekontunu WhatsApp üzerinden <strong>0530 916 44 25</strong> gönderiniz.<br>
+          Ödeme kontrolünden sonra kaydınız tamamen alınmış olacaktır.
+        </p>
       </div>
     `;
   } catch (err) {

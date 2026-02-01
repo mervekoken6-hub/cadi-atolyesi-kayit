@@ -161,12 +161,12 @@ WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmfEVNxdhnUmiGtzF4HO37ICvArzsk-Dl8Jf5sYuVO_JihsLqX1IHL9SbuwWg6SZH1uA/exec";
 
-document.getElementById("registerForm").addEventListener("submit", async function(e){
+document.getElementById("registerForm").addEventListener("submit", function(e){
   e.preventDefault();
 
   const f = e.target;
 
-  const payload = {
+  const params = new URLSearchParams({
     type: "cadi",
     name: f.name.value.trim(),
     email: f.email.value.trim(),
@@ -176,31 +176,31 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     price: f.price.value,
     note: "",
     lang: "tr"
-  };
+  });
 
-  try {
-    const res = await fetch(SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+  fetch(SCRIPT_URL + "?" + params.toString())
+    .then(r => r.json())
+    .then(json => {
+      if (!json.ok) {
+        alert(json.error || "Bu seans dolu. Lütfen başka seans seçiniz.");
+        return;
+      }
+
+      document.getElementById("formArea").innerHTML = `
+        <div class="success">
+          <h2>✨ Kayıt Alındı</h2>
+          <p>
+            Ödeme dekontunu WhatsApp üzerinden<br>
+            <strong>0530 916 44 25</strong> numarasına gönderiniz.<br><br>
+            Ödeme kontrolünden sonra<br>
+            kaydınız tamamen alınmış olacaktır.
+          </p>
+        </div>
+      `;
+    })
+    .catch(() => {
+      alert("Bağlantı hatası. Lütfen tekrar deneyin.");
     });
-
-    const json = await res.json();
-
-    if (!json.ok) {
-      alert(json.error || "Bu seans dolmuştur. Lütfen başka bir seans seçiniz.");
-      return;
-    }
-
-    document.getElementById("formArea").innerHTML = `
-      <div class="success">
-        <h2>✨ Kayıt Alındı</h2>
-        <p>Ödeme kontrolünden sonra<br>kaydınız tamamen alınmış olacaktır.</p>
-      </div>
-    `;
-  } catch (err) {
-    alert("Bağlantı hatası. Lütfen tekrar deneyin.");
-  }
 });
 </script>
 

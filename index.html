@@ -167,6 +167,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   const f = e.target;
 
   const params = new URLSearchParams({
+    action: "register",   // ✅ eklendi (GET ile kayıt moduna geçer)
     type: "cadi",
     name: f.name.value.trim(),
     email: f.email.value.trim(),

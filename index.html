@@ -148,6 +148,7 @@ WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
 </div>
 
 <button type="submit">Kaydı Gönder</button>
+
 </form>
 
 <div class="warning">
@@ -160,31 +161,12 @@ WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmfEVNxdhnUmiGtzF4HO37ICvArzsk-Dl8Jf5sYuVO_JihsLqX1IHL9SbuwWg6SZH1uA/exec";
 
-document.getElementById("registerForm").addEventListener("submit", function(e){
+document.getElementById("registerForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
   const f = e.target;
-  const cb = "cb_" + Date.now();
 
-  window[cb] = function(res){
-    delete window[cb];
-    document.body.removeChild(script);
-
-    if (!res.ok) {
-      alert(res.error);
-      return;
-    }
-
-    document.getElementById("formArea").innerHTML = `
-      <div class="success">
-        <h2>✨ Kayıt Alındı</h2>
-        <p>Ödeme kontrolünden sonra<br>kaydınız tamamen alınmış olacaktır.</p>
-      </div>
-    `;
-  };
-
-  const params = new URLSearchParams({
-    callback: cb,
+  const payload = {
     type: "cadi",
     name: f.name.value.trim(),
     email: f.email.value.trim(),
@@ -194,11 +176,31 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
     price: f.price.value,
     note: "",
     lang: "tr"
-  });
+  };
 
-  const script = document.createElement("script");
-  script.src = SCRIPT_URL + "?" + params.toString();
-  document.body.appendChild(script);
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const json = await res.json();
+
+    if (!json.ok) {
+      alert(json.error || "Bu seans dolmuştur. Lütfen başka bir seans seçiniz.");
+      return;
+    }
+
+    document.getElementById("formArea").innerHTML = `
+      <div class="success">
+        <h2>✨ Kayıt Alındı</h2>
+        <p>Ödeme kontrolünden sonra<br>kaydınız tamamen alınmış olacaktır.</p>
+      </div>
+    `;
+  } catch (err) {
+    alert("Bağlantı hatası. Lütfen tekrar deneyin.");
+  }
 });
 </script>
 

@@ -161,13 +161,13 @@ WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmfEVNxdhnUmiGtzF4HO37ICvArzsk-Dl8Jf5sYuVO_JihsLqX1IHL9SbuwWg6SZH1uA/exec";
 
-document.getElementById("registerForm").addEventListener("submit", function(e){
+document.getElementById("registerForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
   const f = e.target;
 
-  const params = new URLSearchParams({
-    action: "register",   // ✅ eklendi (GET ile kayıt moduna geçer)
+  const payload = {
+    action: "register",
     type: "cadi",
     name: f.name.value.trim(),
     email: f.email.value.trim(),
@@ -177,31 +177,36 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
     price: f.price.value,
     note: "",
     lang: "tr"
-  });
+  };
 
-  fetch(SCRIPT_URL + "?" + params.toString())
-    .then(r => r.json())
-    .then(json => {
-      if (!json.ok) {
-        alert(json.error || "Bu seans dolu. Lütfen başka seans seçiniz.");
-        return;
-      }
-
-      document.getElementById("formArea").innerHTML = `
-        <div class="success">
-          <h2>✨ Kayıt Alındı</h2>
-          <p>
-            Ödeme dekontunu WhatsApp üzerinden<br>
-            <strong>0530 916 44 25</strong> numarasına gönderiniz.<br><br>
-            Ödeme kontrolünden sonra<br>
-            kaydınız tamamen alınmış olacaktır.
-          </p>
-        </div>
-      `;
-    })
-    .catch(() => {
-      alert("Bağlantı hatası. Lütfen tekrar deneyin.");
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
     });
+
+    const json = await res.json();
+
+    if (!json.ok) {
+      alert(json.error || "Bu seans doludur.");
+      return;
+    }
+
+    document.getElementById("formArea").innerHTML = `
+      <div class="success">
+        <h2>✨ Kayıt Alındı</h2>
+        <p>
+          Ödeme dekontunu WhatsApp üzerinden<br>
+          <strong>0530 916 44 25</strong> numarasına gönderiniz.<br><br>
+          Ödeme kontrolünden sonra<br>
+          kaydınız tamamen alınmış olacaktır.
+        </p>
+      </div>
+    `;
+  } catch {
+    alert("Bağlantı hatası. Lütfen tekrar deneyin.");
+  }
 });
 </script>
 

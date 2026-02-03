@@ -55,7 +55,7 @@
   .announcement{
     background:rgba(168,85,247,.12);
     border:1px solid rgba(168,85,247,.35);
-    border-radius:14px;
+    border-radius:144px; /* Tasarım uyumu için */
     padding:14px;
     font-size:13px;
     text-align:center;
@@ -79,8 +79,9 @@
     font-size:15px;
     font-weight:700;
     cursor:pointer;
-    transition: opacity 0.3s;
+    transition: transform 0.2s, opacity 0.3s;
   }
+  button:active{ transform: scale(0.98); }
   button:disabled{ opacity: 0.6; cursor: not-allowed; }
   .warning{
     margin-top:16px;
@@ -92,7 +93,8 @@
     text-align:center;
     font-weight:600;
   }
-  .success{text-align:center;padding:40px 20px;}
+  .message-screen{text-align:center;padding:40px 10px; animation: fadeIn 0.5s ease-in-out;}
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 
@@ -120,7 +122,7 @@
     <input type="email" name="email" required>
 
     <label>Telefon (WhatsApp)</label>
-    <input type="tel" name="phone" required>
+    <input type="tel" name="phone" required placeholder="05xx xxx xx xx">
 
     <label>Tarih</label>
     <input type="date" name="date" required>
@@ -153,71 +155,78 @@
     <button type="submit" id="submitBtn">Kaydı Gönder</button>
   </form>
 
-  <div class="warning">
+  <div class="warning" id="bottomWarning">
     ⚠️ Ödeme dekontunu WhatsApp üzerinden <strong>0530 916 44 25</strong> gönderiniz.<br>
     Ödeme kontrolünden sonra kaydınız tamamen alınmış olacaktır.
   </div>
 </div>
 
 <script>
-// ⚠️ ÖNEMLİ: Apps Script'i "Herkes" olarak yayınladıktan sonra gelen URL'yi buraya yapıştırın.
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwQvFVLLIOb1Ebh_vuWFi4WT14-N7b4_oaQToOTZsQonYNOaL6DxWK93xMAHoso9bmcg/exec";
+// Apps Script URL'nizi buraya yapıştırın
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmfEVNxdhnUmiGtzF4HO37ICvArzsk-Dl8Jf5sYuVO_JihsLqX1IHL9SbuwWg6SZH1uA/exec";
 
 document.getElementById("registerForm").addEventListener("submit", function(e){
   e.preventDefault();
   const f = e.target;
   const btn = document.getElementById("submitBtn");
 
-  // Çift tıklamayı önlemek için butonu pasifleştir
   btn.disabled = true;
   btn.innerText = "Kontrol ediliyor...";
 
-  // Verileri topla
-  const name = f.name.value.trim();
-  const email = f.email.value.trim();
-  const phone = f.phone.value.trim();
-  const date = f.date.value;
-  const session = f.session.value;
-  const price = f.price.value;
-
-  // JSONP için rastgele bir callback ismi oluştur
   const callbackName = "cb_" + Math.round(Math.random() * 1000000);
+  const params = new URLSearchParams({
+    callback: callbackName,
+    type: "cadi",
+    name: f.name.value.trim(),
+    email: f.email.value.trim(),
+    phone: f.phone.value.trim(),
+    date: f.date.value,
+    session: f.session.value,
+    price: f.price.value
+  });
 
-  // URL oluştur (Parametreleri ekleyerek)
-  const finalUrl = `${SCRIPT_URL}?callback=${callbackName}&type=cadi&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&date=${encodeURIComponent(date)}&session=${encodeURIComponent(session)}&price=${encodeURIComponent(price)}`;
-
-  // JSONP Mekanizması
   const script = document.createElement('script');
-  script.src = finalUrl;
+  script.src = `${SCRIPT_URL}?${params.toString()}`;
 
-  // Apps Script'ten yanıt gelince çalışacak fonksiyon
   window[callbackName] = function(data) {
     if (data.ok) {
+      // ✅ ŞIK BAŞARI EKRANI
       document.getElementById("formArea").innerHTML = `
-        <div class="success">
-          <h2>✨ Kayıt Alındı</h2>
-          <p>
+        <div class="message-screen">
+          <h2 style="color: #ec4899; margin-bottom:20px;">✨ Kayıt Alındı</h2>
+          <p style="line-height: 1.8; font-size: 15px;">
             Ödeme dekontunu WhatsApp üzerinden<br>
-            <strong>0530 916 44 25</strong> numarasına gönderiniz.<br><br>
+            <strong style="font-size: 1.2em; color: #a855f7;">0530 916 44 25</strong><br>
+            numarasına gönderiniz.<br><br>
             Ödeme kontrolünden sonra<br>
-            kaydınız tamamen alınmış olacaktır.
+            kaydınız onaylanacaktır. 💜
           </p>
+          <button onclick="location.reload()" style="margin-top:30px; background: #374151; width: auto; padding: 12px 25px;">Yeni Kayıt Oluştur</button>
         </div>
       `;
     } else {
-      // ⚠️ Eğer kontenjan doluysa veya hata varsa burası çalışır
-      alert("⚠️ Hata: " + (data.error || "Bir sorun oluştu."));
-      btn.disabled = false;
-      btn.innerText = "Kaydı Gönder";
+      // ❌ ŞIK SEANS DOLU EKRANI
+      document.getElementById("formArea").innerHTML = `
+        <div class="message-screen">
+          <h2 style="color: #fbbf24; margin-bottom:20px;">⚠️ Seans Dolu</h2>
+          <p style="line-height: 1.8; font-size: 15px; margin-bottom: 30px;">
+            Seçmiş olduğunuz tarih ve saatte<br>
+            <strong>5 kişilik kontenjanımız dolmuştur.</strong><br><br>
+            Lütfen başka bir seans veya gün seçerek<br>
+            tekrar deneyiniz. ✨
+          </p>
+          <button onclick="location.reload()" style="background: linear-gradient(135deg,#7c3aed,#ec4899);">
+            Geri Dön ve Seans Değiştir
+          </button>
+        </div>
+      `;
     }
-    // Temizlik
     delete window[callbackName];
     document.body.removeChild(script);
   };
 
-  // Scripti sayfaya ekleyerek isteği gönder
   script.onerror = function() {
-    alert("Bağlantı hatası oluştu. Lütfen URL'yi veya internetinizi kontrol edin.");
+    alert("Bağlantı hatası! Lütfen internetinizi kontrol edip tekrar deneyin.");
     btn.disabled = false;
     btn.innerText = "Kaydı Gönder";
   };

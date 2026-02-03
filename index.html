@@ -47,6 +47,7 @@
     margin-bottom:24px;
   }
   .program strong{display:block;margin-bottom:8px;font-size:14px;}
+  .program .quota{ margin-top:10px; font-size:12.5px; opacity:.85; }
   .announcement{
     background:rgba(168,85,247,.12);
     border:1px solid rgba(168,85,247,.35);
@@ -101,10 +102,12 @@
 
   <div class="program">
     <strong>🌙 Haftalık Program</strong>
-    🎨 Pazartesi & Perşembe — Resim Workshop’u<br>
+    🎨 Pazartesi & Perşembe — Küçük Tuval Resim Workshop’u<br>
     🏺 Salı & Cuma — Kil Atölyesi<br>
-    🔮 Çarşamba & Cumartesi — Kavanoz Boyama<br><br>
-    Seanslar: 09.30 – 11.00 / 11.20 – 12.50 / 14.10 – 15.40 / 16.00 – 17.30
+    🔮 Çarşamba & Cumartesi — Kavanoz Boyama Atölyesi<br><br>
+    Seanslar: 09.30 – 11.00 / 11.20 – 12.50 / 14.10 – 15.40 / 16.00 – 17.30<br>
+    Cumartesi ek seans: 17.50 – 19.20
+    <div class="quota">✨ Her seans en fazla <strong>5 kişiliktir</strong>.</div>
   </div>
 
   <form id="registerForm">
@@ -133,21 +136,29 @@
     <label>Ücret (TL)</label>
     <input type="number" name="price" value="500" required>
 
+    <div class="announcement">
+      <strong>📢 Duyuru</strong><br>
+      Atölye ücretleri seansa göre değişiklik gösterebilir.<br>
+      Kayıt öncesinde fiyat bilgisi için<br>
+      WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
+    </div>
+
     <div class="age-check">
       <input type="checkbox" required>
-      <span>18 yaş ve üzerindeyim.</span>
+      <span>18 yaş ve üzerindeyim, kaydı kendi rızamla oluşturuyorum.</span>
     </div>
 
     <button type="submit" id="submitBtn">Kaydı Gönder</button>
   </form>
 
   <div class="warning">
-    ⚠️ Ödeme dekontunu WhatsApp üzerinden gönderiniz.
+    ⚠️ Ödeme dekontunu WhatsApp üzerinden <strong>0530 916 44 25</strong> gönderiniz.<br>
+    Ödeme kontrolünden sonra kaydınız tamamen alınmış olacaktır.
   </div>
 </div>
 
 <script>
-// Apps Script URL'nizi buraya yapıştırın (Görüntündeki URL'yi kullandım)
+// Apps Script URL'si
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmfEVNxdhnUmiGtzF4HO37ICvArzsk-D18jf5sYuVO_JihsLqX1IHL9SbuwWg6SZH1uA/exec";
 
 document.getElementById("registerForm").addEventListener("submit", function(e){
@@ -182,12 +193,11 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
           <button onclick="location.reload()" style="background: #374151; width: auto; padding: 10px 20px;">Yeni Kayıt</button>
         </div>`;
     } else {
-      // ❌ ŞIK HATA/DOLU EKRANI (O gri kutuların yerini alan kısım burası!)
       document.getElementById("formArea").innerHTML = `
         <div class="message-screen">
           <h2 style="color: #fbbf24;">⚠️ Seans Dolu</h2>
-          <p style="line-height: 1.8;">Maalesef seçtiğiniz seans 5 kişilik<br>kontenjan sınırına ulaşmıştır.<br><br>Lütfen başka bir gün veya saat seçiniz.</p>
-          <button onclick="location.reload()" style="background: linear-gradient(135deg,#7c3aed,#ec4899);">Geri Dön ve Değiştir</button>
+          <p style="line-height: 1.8;">Maalesef seçtiğiniz seans 5 kişilik<br>kontenjan sınırına ulaşmıştır.<br><br>Lütfen başka bir gün seçiniz.</p>
+          <button onclick="location.reload()" style="background: linear-gradient(135deg,#7c3aed,#ec4899);">Geri Dön</button>
         </div>`;
     }
     delete window[callbackName];
@@ -195,11 +205,10 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   };
 
   script.onerror = function() {
-    // İnternet kesilirse veya Google yanıt vermezse
     document.getElementById("formArea").innerHTML = `
         <div class="message-screen">
           <h2 style="color: #ef4444;">⚠️ Bağlantı Sorunu</h2>
-          <p>Şu an sunucuya ulaşılamıyor. Lütfen internetinizi kontrol edip tekrar deneyin.</p>
+          <p>Lütfen internetinizi veya Apps Script URL'sini kontrol edin.</p>
           <button onclick="location.reload()">Tekrar Dene</button>
         </div>`;
   };

@@ -48,6 +48,18 @@
   }
   .program strong{display:block;margin-bottom:8px;font-size:14px;}
   .program .quota{ margin-top:10px; font-size:12.5px; opacity:.85; }
+  
+  .iban-box {
+    background: rgba(124, 58, 237, 0.15);
+    border: 1px dashed #7c3aed;
+    border-radius: 14px;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .iban-box strong { display: block; color: #fbbf24; margin-bottom: 5px; font-size: 14px; }
+  .iban-num { font-family: monospace; font-size: 14px; letter-spacing: 1px; color: #fff; }
+
   .announcement{
     background:rgba(168,85,247,.12);
     border:1px solid rgba(168,85,247,.35);
@@ -136,10 +148,15 @@
     <label>Ücret (TL)</label>
     <input type="number" name="price" value="500" required>
 
+    <div class="iban-box">
+      <strong>💳 Ödeme Bilgileri</strong>
+      <div class="iban-num">TR78 0004 6012 1488 8000 1122 48</div>
+      <div style="font-size: 13px; margin-top: 5px; opacity: 0.9;">Merve Köken</div>
+    </div>
+
     <div class="announcement">
       <strong>📢 Duyuru</strong><br>
-      Atölye ücretleri seansa göre değişiklik gösterebilir.<br>
-      Kayıt öncesinde fiyat bilgisi için<br>
+      Kayıt öncesinde fiyat bilgisi ve detaylar için<br>
       WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
     </div>
 
@@ -153,12 +170,11 @@
 
   <div class="warning">
     ⚠️ Ödeme dekontunu WhatsApp üzerinden <strong>0530 916 44 25</strong> gönderiniz.<br>
-    Ödeme kontrolünden sonra kaydınız tamamen alınmış olacaktır.
+    Ödeme kontrolünden sonra kaydınız onaylanacaktır.
   </div>
 </div>
 
 <script>
-// Apps Script URL'si
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwQvFVLLIOb1Ebh_vuWFi4WT14-N7b4_oaQToOTZsQonYNOaL6DxWK93xMAHoso9bmcg/exec";
 
 document.getElementById("registerForm").addEventListener("submit", function(e){
@@ -208,7 +224,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
     document.getElementById("formArea").innerHTML = `
         <div class="message-screen">
           <h2 style="color: #ef4444;">⚠️ Bağlantı Sorunu</h2>
-          <p>Lütfen internetinizi veya Apps Script URL'sini kontrol edin.</p>
+          <p>Lütfen internetinizi veya bağlantınızı kontrol edin.</p>
           <button onclick="location.reload()">Tekrar Dene</button>
         </div>`;
   };

@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Cadı Atölyesi | Kayıt Formu</title>
+<title>Cadı Sanat Atölyesi | Kayıt Formu</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -27,21 +27,19 @@
   }
 
   /* Logo Alanı */
-  .logo-area {
+  .logo-container {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    animation: fadeIn 0.8s ease-out;
   }
-  .logo-placeholder {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+  .main-logo {
+    width: 140px; /* Logo boyutu */
+    height: auto;
     border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
-    margin-bottom: 10px;
+    box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    background: white; /* Logonun temiz görünmesi için */
+    padding: 5px;
   }
 
   .form-card{
@@ -54,7 +52,7 @@
     border: 1px solid rgba(255,255,255,0.05);
   }
 
-  h1{text-align:center; margin:0; font-weight:700; letter-spacing: -1px;}
+  h1{text-align:center; margin:10px 0 5px 0; font-weight:700; letter-spacing: -1px; font-size: 26px;}
   .subtitle{text-align:center;font-size:14px;opacity:.7;margin-bottom:25px;}
   
   label{font-size:13px;font-weight:600;display:block;margin-bottom:6px; color: #a78bfa;}
@@ -112,7 +110,6 @@
   button:hover{ opacity: 0.9; transform: translateY(-1px); }
   button:disabled{ opacity: 0.5; cursor: not-allowed; }
 
-  /* Footer Politikalar */
   .footer-links {
     margin-top: 30px;
     display: flex;
@@ -148,10 +145,10 @@
 
 <body>
 
-<div class="logo-area">
-  <div class="logo-placeholder">🌙</div>
-  <h1>Cadı Atölyesi</h1>
-  <div class="subtitle">Resmi Kayıt ve Başvuru Portalı</div>
+<div class="logo-container">
+  <img src="Logo-Photoroom (1).jpg" alt="Cadı Sanat Atölyesi Logo" class="main-logo">
+  <h1>Cadı Sanat Atölyesi</h1>
+  <div class="subtitle">Atölye Kayıt ve Başvuru Portalı</div>
 </div>
 
 <div class="form-card" id="formArea">
@@ -164,10 +161,10 @@
   </div>
 
   <form id="registerForm">
-    <label>Katılımcı Ad Soyad</label>
-    <input name="name" required placeholder="Örn: Merve Köken">
+    <label>Ad Soyad</label>
+    <input name="name" required placeholder="Adınız Soyadınız">
 
-    <label>E-posta Adresi (Onay maili için)</label>
+    <label>E-posta (Onay maili için)</label>
     <input type="email" name="email" id="userEmail" required placeholder="ornek@mail.com">
 
     <label>WhatsApp Numarası</label>
@@ -175,11 +172,11 @@
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
       <div>
-        <label>Atölye Tarihi</label>
+        <label>Tarih</label>
         <input type="date" name="date" required>
       </div>
       <div>
-        <label>Seans Seçimi</label>
+        <label>Seans Saati</label>
         <select name="session" required>
           <option value="">Seçiniz</option>
           <option>09.30 – 11.00</option>
@@ -191,29 +188,36 @@
       </div>
     </div>
 
+    <label>Ücret (TL)</label>
+    <input type="number" name="price" value="500" required>
+
     <div class="iban-box">
-      <strong>💳 Ödeme Bilgisi (Havale/EFT)</strong>
+      <strong>💳 Banka Havalesi Bilgileri</strong>
       <div class="iban-num">TR78 0004 6012 1488 8000 1122 48</div>
       <div style="font-size: 12px; margin-top: 4px;">Alıcı: Merve Köken</div>
     </div>
 
     <div class="age-check">
       <input type="checkbox" required>
-      <span>18 yaş üzerindeyim, <span class="policy-link" onclick="showPolicy('mesafeli')">Mesafeli Satış Sözleşmesi</span>'ni kabul ediyorum.</span>
+      <span>18 yaş ve üzerindeyim, <span class="policy-link" onclick="showPolicy('mesafeli')">Mesafeli Satış Sözleşmesi</span>'ni kabul ediyorum.</span>
     </div>
 
     <div class="age-check">
       <input type="checkbox" required>
-      <span><span class="policy-link" onclick="showPolicy('kvkk')">KVKK Aydınlatma Metni</span> uyarınca verilerimin işlenmesine izin veriyorum.</span>
+      <span><span class="policy-link" onclick="showPolicy('kvkk')">KVKK Aydınlatma Metni</span>'ni okudum ve kabul ediyorum.</span>
     </div>
 
     <div class="age-check">
       <input type="checkbox" id="marketing">
-      <span>Yeni atölye duyurularından haberdar olmak istiyorum. (İsteğe bağlı)</span>
+      <span>Gelecek kampanya ve duyurulardan haberdar olmak istiyorum.</span>
     </div>
 
-    <button type="submit" id="submitBtn">Kayıt Başvurusunu Tamamla</button>
+    <button type="submit" id="submitBtn">Kaydı Gönder</button>
   </form>
+
+  <div class="warning" style="margin-top:20px; padding:15px; border-radius:14px; background:rgba(255,193,7,.1); color:#fde68a; font-size:12px; text-align:center;">
+    ⚠️ Ödeme dekontunu WhatsApp üzerinden 0530 916 44 25 gönderiniz. Ödeme sonrası kaydınız onaylanacaktır.
+  </div>
 </div>
 
 <div class="footer-links">
@@ -226,7 +230,7 @@
   <div class="modal-content">
     <div class="modal-header" id="modalHeader">Politika</div>
     <div class="modal-text" id="modalText">İçerik yükleniyor...</div>
-    <button class="close-modal" onclick="closeKvkk()">Anladım, Kapat</button>
+    <button class="close-modal" onclick="closePolicy()">Kapat</button>
   </div>
 </div>
 
@@ -236,15 +240,15 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwQvFVLLIOb1Ebh_vuW
 const policies = {
   kvkk: {
     title: "KVKK Aydınlatma Metni",
-    text: "Cadı Atölyesi olarak kişisel verilerinizin güvenliğine önem veriyoruz. Bu formla toplanan Ad-Soyad, İletişim ve E-posta verileriniz yalnızca atölye kaydı, katılım belgesi ve iletişim süreçleri için kullanılır. Verileriniz üçüncü şahıslarla paylaşılmaz ve dilediğiniz zaman silinmesini talep edebilirsiniz."
+    text: "Cadı Sanat Atölyesi olarak kişisel verilerinizin güvenliğine önem veriyoruz. Bu form aracılığıyla paylaştığınız veriler yalnızca atölye kaydı ve iletişim amacıyla kullanılacaktır. Verileriniz yasal süreler sonunda silinecektir ve dilediğiniz zaman silinmesini talep etme hakkınız saklıdır."
   },
   mesafeli: {
     title: "Mesafeli Satış Sözleşmesi",
-    text: "İşbu sözleşme, alıcının seçtiği tarihteki atölye hizmetini kapsar. Kayıt formunun doldurulması ve ödemenin yapılmasıyla hizmet süreci başlar. Mücbir sebepler dışında hizmet sağlayıcı atölyeyi gerçekleştirmekle yükümlüdür. Katılımcı, seçtiği seansa zamanında katılacağını beyan eder."
+    text: "Hizmet sağlayıcı, katılımcının seçtiği tarihteki atölye eğitimini sağlamakla yükümlüdür. Ödemenin tamamlanmasıyla kayıt kesinleşir. Katılımcı, seçtiği seansa vaktinde katılacağını ve atölye kurallarına uyacağını taahhüt eder."
   },
   iade: {
     title: "İptal ve İade Koşulları",
-    text: "Atölye tarihinden 24 saat öncesine kadar yapılan iptallerde ücret iadesi yapılır veya kayıt başka bir tarihe kaydırılır. 24 saatten az kalan sürelerde yapılan iptallerde, hazırlık ve kontenjan maliyetleri nedeniyle iade yapılamamaktadır. Atölyenin bizim tarafımızdan iptali durumunda %100 iade garantisi verilir."
+    text: "Atölye tarihinden 24 saat öncesine kadar yapılan iptallerde ücret iadesi yapılır. Daha az kalan sürelerde, hazırlık ve kontenjan maliyetleri nedeniyle iade yapılamamaktadır. Ancak kayıt başka bir seansa devredilebilir."
   }
 };
 
@@ -254,7 +258,7 @@ function showPolicy(key) {
   document.getElementById("policyModal").style.display = "block";
 }
 
-function closeKvkk() { document.getElementById("policyModal").style.display = "none"; }
+function closePolicy() { document.getElementById("policyModal").style.display = "none"; }
 
 function cleanText(str) {
   return str.replace(/İ/g, "I").replace(/ı/g, "i").replace(/Ğ/g, "G").replace(/ğ/g, "g")
@@ -269,7 +273,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   const userEmail = document.getElementById("userEmail").value;
 
   btn.disabled = true;
-  btn.innerText = "Kayıt İşleniyor...";
+  btn.innerText = "İşleniyor...";
 
   const callbackName = "cb_" + Math.round(Math.random() * 1000000);
   const params = new URLSearchParams({
@@ -292,18 +296,18 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
       document.getElementById("formArea").innerHTML = `
         <div class="message-screen">
           <div style="font-size: 50px; margin-bottom: 20px;">✨</div>
-          <h2 style="color: #ec4899; margin:0;">Başvuru Alındı!</h2>
+          <h2 style="color: #ec4899;">Kayıt Alındı!</h2>
           <p style="opacity: 0.8; font-size: 14px; line-height: 1.6;">
-            Kaydınız bize ulaştı. <b>${userEmail}</b> adresine bir bilgilendirme maili gönderdik.<br><br>
-            Dekontu WhatsApp'tan ilettiğinizde kaydınız kesinleşecektir.
+            Kaydınız başarıyla oluşturuldu. <b>${userEmail}</b> adresine bir bilgilendirme maili gönderdik.<br><br>
+            Ödeme dekontunu WhatsApp üzerinden ilettiğinizde kaydınız kesinleşecektir.
           </p>
-          <button onclick="location.reload()" style="background: #1f172b; width: auto; padding: 12px 25px; font-size: 13px;">Yeni Kayıt Oluştur</button>
+          <button onclick="location.reload()" style="background: #374151; width: auto; padding: 10px 20px;">Yeni Kayıt</button>
         </div>`;
     } else {
       document.getElementById("formArea").innerHTML = `
         <div class="message-screen">
-          <h2 style="color: #fbbf24;">⚠️ Kontenjan Dolu</h2>
-          <p>Seçtiğiniz seans maalesef dolmuştur. Lütfen farklı bir tarih deneyiniz.</p>
+          <h2 style="color: #fbbf24;">⚠️ Seans Dolu</h2>
+          <p>Maalesef seçtiğiniz seans sınırına ulaşmıştır. Lütfen başka bir tarih seçiniz.</p>
           <button onclick="location.reload()">Geri Dön</button>
         </div>`;
     }
@@ -312,10 +316,11 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   };
 
   script.onerror = function() {
-    alert("Bağlantı hatası! Lütfen internetinizi kontrol edip tekrar deneyin.");
+    alert("Bağlantı hatası oluştu. Lütfen tekrar deneyin.");
     btn.disabled = false;
     btn.innerText = "Kaydı Gönder";
   };
+  
   document.body.appendChild(script);
 });
 </script>

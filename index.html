@@ -2,271 +2,249 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Cadı Atölyesi | Kayıt Formu</title>
+<title>Cadı Atölyesi | Resmi Kayıt Paneli</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/witch.png">
 
 <style>
+  :root {
+    --primary: #7c3aed;
+    --secondary: #ec4899;
+    --bg-dark: #0e0b14;
+    --card-bg: rgba(20, 15, 30, 0.96);
+  }
+
   body{
     margin:0;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background:radial-gradient(circle at top,#2b1c3a,#0e0b14);
+    font-family:'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: radial-gradient(circle at top, #2b1c3a, var(--bg-dark));
     color:#f5eaff;
     min-height:100vh;
     display:flex;
+    flex-direction: column;
     align-items:center;
     justify-content:center;
-    padding: 20px;
+    padding: 40px 20px;
   }
+
+  .logo-area {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  .logo-area img {
+    max-width: 120px; /* Logonun boyutu */
+    filter: drop-shadow(0 0 10px rgba(124, 58, 237, 0.5));
+  }
+
   .form-card{
-    background:rgba(20,15,30,.95);
+    background: var(--card-bg);
     border-radius:24px;
-    padding:34px;
+    padding:40px;
     width:100%;
-    max-width:480px;
-    box-shadow:0 30px 60px rgba(0,0,0,.7);
-    border: 1px solid rgba(124, 58, 237, 0.2);
+    max-width:500px;
+    box-shadow:0 30px 60px rgba(0,0,0,0.7);
+    border: 1px solid rgba(124, 58, 237, 0.1);
   }
-  h1{text-align:center;margin-bottom:6px;font-weight:800; color: #fff; letter-spacing: -1px;}
-  .subtitle{text-align:center;font-size:14px;opacity:.85;margin-bottom:22px; color: #c4b5fd;}
-  
-  label{font-size:12px;font-weight:700;display:block;margin-bottom:6px; color: #a78bfa; text-transform: uppercase;}
-  
-  input,select{
+
+  h1{text-align:center; margin:0; font-size: 28px; font-weight:700; letter-spacing: -0.5px;}
+  .subtitle{text-align:center; font-size:14px; opacity:0.7; margin-bottom:25px; letter-spacing: 1px; text-transform: uppercase;}
+
+  label{font-size:12px; font-weight:600; display:block; margin-bottom:6px; color: #a78bfa; text-transform: uppercase;}
+  input, select{
     width:100%;
-    padding:13px;
+    padding:14px;
     border-radius:12px;
-    border: 1px solid rgba(168, 85, 247, 0.2);
+    border: 1px solid rgba(255,255,255,0.05);
     margin-bottom:18px;
-    background:#161021;
+    background:#161122;
     color:#fff;
     box-sizing: border-box;
     outline: none;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
   }
-  input:focus, select:focus {
-    border-color: #ec4899;
-    background: #1f172b;
-    box-shadow: 0 0 10px rgba(236, 72, 153, 0.2);
-  }
+  input:focus, select:focus { border-color: var(--primary); background: #1f172b; }
 
   .program{
-    background:linear-gradient(135deg,#1f1730,#120d1f);
+    background: linear-gradient(135deg, #1f1730, #120d1f);
     border-radius:18px;
     padding:20px;
     font-size:13px;
     line-height:1.7;
-    margin-bottom:24px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom:25px;
+    border: 1px solid rgba(255,255,255,0.03);
   }
-  .program strong{display:block;margin-bottom:8px;font-size:14px; color: #fbbf24;}
-  .program .quota{ margin-top:10px; font-size:12.5px; color: #34d399; font-weight: 600; }
+  .program strong{display:block; margin-bottom:8px; color: var(--secondary);}
   
   .iban-box {
-    background: rgba(124, 58, 237, 0.1);
-    border: 1px dashed rgba(124, 58, 237, 0.5);
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.2);
     border-radius: 16px;
-    padding: 16px;
+    padding: 18px;
     text-align: center;
     margin-bottom: 20px;
   }
-  .iban-box strong { display: block; color: #fbbf24; margin-bottom: 5px; font-size: 14px; }
-  .iban-num { font-family: 'Courier New', monospace; font-size: 14px; font-weight: bold; color: #fff; }
+  .iban-num { font-family: 'Courier New', monospace; font-size: 15px; font-weight: bold; color: #fbbf24; }
 
-  .announcement{
-    background:rgba(168,85,247,0.08);
-    border-radius:14px;
-    padding:14px;
-    font-size:12.5px;
-    text-align:center;
-    margin-bottom:20px;
-    color: #d1d5db;
-  }
-  
   .age-check{
-    display:flex;
-    gap:10px;
-    font-size:12px;
-    margin-bottom:12px;
-    align-items: flex-start;
-    line-height: 1.5;
-    color: #9ca3af;
+    display:flex; gap:12px; font-size:12px; margin-bottom:12px; align-items: flex-start; opacity: 0.9;
   }
-  .age-check input{width:auto; margin: 0; margin-top:3px; cursor: pointer; accent-color: #ec4899;}
-  .kvkk-link{color: #ec4899; text-decoration: underline; cursor: pointer; font-weight: 600;}
+  .age-check input{width:auto; margin:0; margin-top:2px; accent-color: var(--primary);}
+  .policy-link{color: var(--secondary); text-decoration: underline; cursor: pointer; font-weight: 600;}
 
-  /* Modal */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.85);
-    backdrop-filter: blur(6px);
-  }
-  .modal-content {
-    background: #110d1a;
-    margin: 10% auto;
-    padding: 25px;
-    border: 1px solid #371d52;
-    width: 85%;
-    max-width: 450px;
-    border-radius: 20px;
-    max-height: 70vh;
-    overflow-y: auto;
-  }
-  .modal-header { font-weight: bold; font-size: 18px; margin-bottom: 15px; color: #ec4899; }
-  .modal-text { font-size: 13.5px; line-height: 1.6; color: #cbd5e1; }
-  .close-modal {
-    background: #7c3aed;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  
-  button#submitBtn {
+  button{
     width:100%;
     padding:18px;
     border-radius:16px;
     border:none;
-    background:linear-gradient(135deg,#7c3aed,#ec4899);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     color:#fff;
     font-size:16px;
-    font-weight:800;
+    font-weight:700;
     cursor:pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
     box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
   }
-  button#submitBtn:hover:not(:disabled){ transform: translateY(-2px); box-shadow: 0 15px 25px rgba(236, 72, 153, 0.4); }
-  button#submitBtn:active{ transform: scale(0.98); }
-  button#submitBtn:disabled{ opacity: 0.6; cursor: not-allowed; }
-  
-  .warning{
-    margin-top:20px;
-    padding:14px;
-    border-radius:14px;
-    background:rgba(251, 191, 36, 0.1);
-    border: 1px solid rgba(251, 191, 36, 0.2);
-    color:#fde68a;
-    font-size:12px;
-    text-align:center;
-  }
+  button:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(124, 58, 237, 0.4); }
+  button:disabled{ opacity: 0.6; cursor: not-allowed; transform: none; }
 
-  .success-card {
-    text-align:center;
-    padding:20px 10px;
-    animation: fadeIn 0.6s ease-out;
+  .footer-links {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 11px;
+    opacity: 0.5;
   }
-  .success-icon { font-size: 50px; margin-bottom: 15px; }
-  .reg-number { 
-    display: inline-block; 
-    background: #1f172b; 
-    padding: 8px 16px; 
-    border-radius: 10px; 
-    color: #fbbf24; 
-    font-weight: bold; 
-    margin: 15px 0;
-    border: 1px solid #fbbf24;
+  .footer-links span { cursor: pointer; transition: opacity 0.2s; }
+  .footer-links span:hover { opacity: 1; text-decoration: underline; }
+
+  /* Pop-up Modals */
+  .modal {
+    display: none; position: fixed; z-index: 9999; left: 0; top: 0;
+    width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
   }
-  @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+  .modal-content {
+    background: #1a1425; margin: auto; padding: 30px; border: 1px solid #371d52;
+    width: 90%; max-width: 500px; border-radius: 24px; max-height: 70vh;
+    overflow-y: auto; position: relative; top: 50%; transform: translateY(-50%);
+  }
+  .modal-header { font-weight: 700; font-size: 20px; margin-bottom: 15px; color: var(--secondary); }
+  .modal-text { font-size: 13px; line-height: 1.6; color: #cbd5e1; }
+  .close-btn { background: var(--primary); color: white; border: none; padding: 10px 25px; border-radius: 12px; cursor: pointer; float: right; margin-top: 20px; }
+
+  .message-screen{text-align:center; padding:40px 10px;}
 </style>
 </head>
 
 <body>
 
-<div id="kvkkModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">Aydınlatma Metni & Politikalar</div>
-    <div class="modal-text">
-      <strong>Veri İşleme Amacı:</strong> Bu formdaki verileriniz Cadı Atölyesi kayıt süreçleri, kontenjan takibi ve size Zoom linki ulaştırmak amacıyla işlenir.<br><br>
-      <strong>Saklama Süresi:</strong> Kişisel verileriniz, ilgili mevzuatta öngörülen süreler boyunca saklanır. Atölye süreci bitiminde talebiniz halinde silinir.<br><br>
-      <strong>Haklarınız:</strong> Verilerinizin silinmesini, düzeltilmesini veya işlenip işlenmediğini öğrenme hakkına sahipsiniz. Başvuru için WhatsApp hattımızdan bize ulaşabilirsiniz.
+  <div class="logo-area">
+    <img src="https://img.icons8.com/fluency/96/crystal-ball.png" alt="Cadı Atölyesi Logo">
+  </div>
+
+  <div class="form-card" id="formArea">
+    <h1>Cadı Atölyesi</h1>
+    <div class="subtitle">Art & Magic Academy</div>
+
+    <div class="program">
+      <strong>🌙 Haftalık Eğitim Programı</strong>
+      🎨 Pzt & Per — Küçük Tuval Workshop<br>
+      🏺 Sal & Cum — Kil Atölyesi<br>
+      🔮 Çar & Cmt — Kavanoz Boyama<br>
+      <small style="opacity:0.7">*Seanslar 5 kişi ile sınırlıdır.</small>
     </div>
-    <button class="close-modal" onclick="closeKvkk()">Anladım, Kapat</button>
-  </div>
-</div>
 
-<div class="form-card" id="formArea">
-  <h1>Cadı Atölyesi</h1>
-  <div class="subtitle">Resmi Kayıt ve Başvuru Paneli</div>
+    <form id="registerForm">
+      <label>Ad Soyad</label>
+      <input name="name" required placeholder="Tam adınızı yazınız">
 
-  <div class="program">
-    <strong>🌙 Haftalık Atölye Takvimi</strong>
-    🎨 Paz. & Per. — Küçük Tuval Workshop<br>
-    🏺 Salı & Cuma — Kil Atölyesi<br>
-    🔮 Çar. & Cmt. — Kavanoz Boyama<br><br>
-    <div class="quota">✨ Kontenjan: Her seans max 5 Kişi</div>
-  </div>
+      <label>E-posta (Onay maili gönderilir)</label>
+      <input type="email" name="email" required placeholder="ornek@mail.com">
 
-  <form id="registerForm">
-    <label>Katılımcı Ad Soyad</label>
-    <input name="name" required placeholder="Örn: Merve Köken">
+      <label>Telefon (WhatsApp)</label>
+      <input type="tel" name="phone" required placeholder="05xx xxx xx xx">
 
-    <label>E-posta Adresi</label>
-    <input type="email" name="email" required placeholder="ornek@mail.com">
-
-    <label>WhatsApp Telefon No</label>
-    <input type="tel" name="phone" required placeholder="05xx xxx xx xx">
-
-    <div style="display: flex; gap: 10px;">
-      <div style="flex: 1;">
-        <label>Seçilen Tarih</label>
-        <input type="date" name="date" required>
+      <div style="display: flex; gap:10px;">
+        <div style="flex:1">
+          <label>Tarih</label>
+          <input type="date" name="date" required>
+        </div>
+        <div style="flex:1">
+          <label>Seans</label>
+          <select name="session" required>
+            <option value="">Seçiniz</option>
+            <option>09.30 – 11.00</option>
+            <option>11.20 – 12.50</option>
+            <option>14.10 – 15.40</option>
+            <option>16.00 – 17.30</option>
+          </select>
+        </div>
       </div>
-      <div style="flex: 1;">
-        <label>Seans Saati</label>
-        <select name="session" required>
-          <option value="">Seçiniz</option>
-          <option>09.30 – 11.00</option>
-          <option>11.20 – 12.50</option>
-          <option>14.10 – 15.40</option>
-          <option>16.00 – 17.30</option>
-          <option>17.50 – 19.20</option>
-        </select>
+
+      <div class="iban-box">
+        <label style="color: #fbbf24;">Havale/EFT Bilgileri</label>
+        <div class="iban-num">TR78 0004 6012 1488 8000 1122 48</div>
+        <div style="font-size: 12px; margin-top: 4px;">Merve Köken</div>
       </div>
-    </div>
 
-    <label>Ödeme Tutarı (TL)</label>
-    <input type="number" name="price" value="500" readonly style="background: rgba(255,255,255,0.05); cursor: not-allowed;">
+      <div class="age-check">
+        <input type="checkbox" required>
+        <span>18 yaş ve üzerindeyim, <span class="policy-link" onclick="openModal('mSatisi')">Satış Sözleşmesini</span> onaylıyorum.</span>
+      </div>
 
-    <div class="iban-box">
-      <strong>💳 Ödeme Alıcısı: Merve Köken</strong>
-      <div class="iban-num" id="copyIban">TR78 0004 6012 1488 8000 1122 48</div>
-      <div style="font-size: 11px; margin-top: 5px; color: #a78bfa;">(Lütfen açıklamaya adınızı yazınız)</div>
-    </div>
+      <div class="age-check">
+        <input type="checkbox" required>
+        <span>Verilerimin işlenmesine dair <span class="policy-link" onclick="openModal('kvkk')">Aydınlatma Metnini</span> okudum.</span>
+      </div>
 
-    <div class="age-check">
-      <input type="checkbox" required>
-      <span>18 yaş ve üzerindeyim, katılım koşullarını onaylıyorum.</span>
-    </div>
+      <div class="age-check">
+        <input type="checkbox" id="marketing">
+        <span>Gelecek atölye duyurularından haberdar olmak istiyorum.</span>
+      </div>
 
-    <div class="age-check">
-      <input type="checkbox" required>
-      <span>Verilerimin işlenmesine dair <span class="kvkk-link" onclick="openKvkk()">Aydınlatma Metnini</span> okudum.</span>
-    </div>
-
-    <div class="age-check">
-      <input type="checkbox" id="marketing">
-      <span>Yeni atölye duyurularından haberdar olmak istiyorum.</span>
-    </div>
-
-    <button type="submit" id="submitBtn">KAYDI SİSTEME GÖNDER</button>
-  </form>
-
-  <div class="warning">
-    ⚠️ İşlem sonrası dekontunuzu <strong>0530 916 44 25</strong> numaralı hatta iletmeyi unutmayınız.
+      <button type="submit" id="submitBtn">Kaydı Tamamla</button>
+    </form>
   </div>
-</div>
+
+  <div class="footer-links">
+    <span onclick="openModal('kvkk')">KVKK Politikası</span>
+    <span onclick="openModal('iade')">İptal ve İade</span>
+    <span onclick="openModal('mSatisi')">Satış Sözleşmesi</span>
+  </div>
+
+  <div id="policyModal" class="modal">
+    <div class="modal-content">
+      <div id="modalTitle" class="modal-header"></div>
+      <div id="modalBody" class="modal-text"></div>
+      <button class="close-btn" onclick="closeModal()">Anladım</button>
+    </div>
+  </div>
 
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwQvFVLLIOb1Ebh_vuWFi4WT14-N7b4_oaQToOTZsQonYNOaL6DxWK93xMAHoso9bmcg/exec";
 
-function openKvkk() { document.getElementById("kvkkModal").style.display = "block"; }
-function closeKvkk() { document.getElementById("kvkkModal").style.display = "none"; }
+const policies = {
+  kvkk: {
+    t: "KVKK Aydınlatma Metni",
+    b: "Kişisel verileriniz (Ad, Tel, E-posta), sadece atölye kaydı ve iletişim süreçleri için 6698 sayılı kanuna uygun işlenir. Verileriniz üçüncü taraflarla paylaşılmaz ve dilediğiniz an silinmesini talep edebilirsiniz."
+  },
+  iade: {
+    t: "İptal ve İade Koşulları",
+    b: "Atölye tarihinden 24 saat öncesine kadar yapılan iptallerde ücret iadesi yapılır. Son 24 saat içinde yapılan iptallerde, materyal hazırlığı nedeniyle iade yapılamamakta, ancak kayıt başka bir tarihe devredilebilmektedir."
+  },
+  mSatisi: {
+    t: "Mesafeli Satış Sözleşmesi",
+    b: "Bu formun doldurulmasıyla, seçilen tarihli sanat eğitimine katılım taahhüt edilir. Hizmet bedeli, eğitim içeriği ve materyalleri kapsar. Katılımcı, atölye kurallarına uymayı kabul eder."
+  }
+};
+
+function openModal(type) {
+  document.getElementById('modalTitle').innerText = policies[type].t;
+  document.getElementById('modalBody').innerText = policies[type].b;
+  document.getElementById('policyModal').style.display = 'block';
+}
+function closeModal() { document.getElementById('policyModal').style.display = 'none'; }
 
 function cleanText(str) {
   return str.replace(/İ/g, "I").replace(/ı/g, "i").replace(/Ğ/g, "G").replace(/ğ/g, "g")
@@ -278,10 +256,8 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   e.preventDefault();
   const f = e.target;
   const btn = document.getElementById("submitBtn");
-  const regID = "CAD-" + Math.floor(1000 + Math.random() * 9000); // Rastgele Kayıt No
-
   btn.disabled = true;
-  btn.innerText = "SİSTEME BAĞLANILIYOR...";
+  btn.innerText = "Bağlanıyor...";
 
   const callbackName = "cb_" + Math.round(Math.random() * 1000000);
   const params = new URLSearchParams({
@@ -292,9 +268,8 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
     phone: f.phone.value.trim(),
     date: f.date.value,
     session: f.session.value,
-    price: f.price.value,
     marketing: document.getElementById("marketing").checked,
-    regID: regID
+    autoReply: "true" // Script tarafında maili tetiklemek için
   });
 
   const script = document.createElement('script');
@@ -303,38 +278,22 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   window[callbackName] = function(data) {
     if (data.ok) {
       document.getElementById("formArea").innerHTML = `
-        <div class="success-card">
-          <div class="success-icon">✨</div>
-          <h2 style="color: #ec4899; margin-bottom: 5px;">Başvuru Alındı!</h2>
-          <p style="font-size: 14px; opacity: 0.9;">Kaydınız sisteme başarıyla işlendi.</p>
-          <div class="reg-number">Kayıt No: ${regID}</div>
-          <p style="font-size: 13px; line-height: 1.6;">
-            Lütfen bu kayıt numarasını veya dekontunuzu WhatsApp üzerinden ileterek işleminizi tamamlayınız.
-          </p>
-          <button onclick="location.reload()" style="background: #374151; width: auto; padding: 12px 25px; margin-top:20px; font-size:14px;">ANAPANEL'E DÖN</button>
+        <div class="message-screen">
+          <img src="https://img.icons8.com/fluency/96/checked.png" style="width:64px; margin-bottom:20px;">
+          <h2 style="color: #ec4899; margin:0;">Kayıt Alındı!</h2>
+          <p style="opacity:0.8;">Onay mailiniz gönderiliyor.<br>Lütfen WhatsApp üzerinden dekontunuzu iletin.</p>
+          <button onclick="location.reload()" style="background: #374151; width: auto; padding: 10px 30px; margin-top:20px;">Yeni Kayıt</button>
         </div>`;
     } else {
-      document.getElementById("formArea").innerHTML = `
-        <div class="success-card">
-          <div class="success-icon">⚠️</div>
-          <h2 style="color: #fbbf24;">KONTENJAN DOLU</h2>
-          <p style="font-size: 14px; line-height: 1.8;">Maalesef bu seans dolmuştur.<br>Lütfen farklı bir zaman dilimi seçiniz.</p>
-          <button onclick="location.reload()" style="background: linear-gradient(135deg,#7c3aed,#ec4899); margin-top:20px;">TEKRAR DENE</button>
-        </div>`;
+      alert("Seans dolu veya bir hata oluştu.");
+      btn.disabled = false;
+      btn.innerText = "Tekrar Dene";
     }
     delete window[callbackName];
     document.body.removeChild(script);
   };
-
-  script.onerror = function() {
-    alert("Bağlantı hatası! Lütfen internetinizi kontrol edip tekrar deneyin.");
-    btn.disabled = false;
-    btn.innerText = "KAYDI GÖNDER";
-  };
-  
   document.body.appendChild(script);
 });
 </script>
-
 </body>
 </html>

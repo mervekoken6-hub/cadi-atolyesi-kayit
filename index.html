@@ -37,7 +37,9 @@
     background:#1f172b;
     color:#fff;
     box-sizing: border-box;
+    outline: none;
   }
+  input:focus, select:focus { box-shadow: 0 0 0 2px #7c3aed; }
   .program{
     background:linear-gradient(135deg,#1f1730,#120d1f);
     border-radius:16px;
@@ -69,14 +71,17 @@
     text-align:center;
     margin-bottom:18px;
   }
-  .age-check{
+  .check-row{
     display:flex;
     gap:10px;
-    font-size:13px;
-    margin-bottom:16px;
+    font-size:12px;
+    margin-bottom:12px;
     align-items: flex-start;
+    line-height: 1.4;
+    color: #cbd5e1;
   }
-  .age-check input{width:auto;margin-top:3px;}
+  .check-row input{width:auto;margin: 0; margin-top:2px; cursor: pointer;}
+  
   button{
     width:100%;
     padding:16px;
@@ -88,16 +93,18 @@
     font-weight:700;
     cursor:pointer;
     transition: transform 0.2s, opacity 0.3s;
+    margin-top: 10px;
   }
   button:active{ transform: scale(0.98); }
   button:disabled{ opacity: 0.6; cursor: not-allowed; }
+
   .warning{
     margin-top:16px;
     padding:14px;
     border-radius:14px;
     background:rgba(255,193,7,.15);
     color:#fde68a;
-    font-size:13px;
+    font-size:12px;
     text-align:center;
     font-weight:600;
   }
@@ -124,20 +131,20 @@
 
   <form id="registerForm">
     <label>Ad Soyad</label>
-    <input name="name" required>
+    <input name="name" required placeholder="Adınız ve Soyadınız">
 
     <label>E-posta</label>
-    <input type="email" name="email" required>
+    <input type="email" name="email" required placeholder="örnek@mail.com">
 
     <label>Telefon (WhatsApp)</label>
     <input type="tel" name="phone" required placeholder="05xx xxx xx xx">
 
-    <label>Tarih</label>
+    <label>Atölye Tarihi</label>
     <input type="date" name="date" required>
 
     <label>Seans Saati</label>
     <select name="session" required>
-      <option value="">Seçiniz</option>
+      <option value="">Seçiniz...</option>
       <option>09.30 – 11.00</option>
       <option>11.20 – 12.50</option>
       <option>14.10 – 15.40</option>
@@ -155,22 +162,26 @@
     </div>
 
     <div class="announcement">
-      <strong>📢 Duyuru</strong><br>
-      Kayıt öncesinde fiyat bilgisi ve detaylar için<br>
-      WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
+      <strong>📢 Bilgilendirme</strong><br>
+      Kayıt öncesi sorularınız için WhatsApp’tan<br>
+      <strong>0530 916 44 25</strong> bize ulaşabilirsiniz 💜
     </div>
 
-    <div class="age-check">
+    <div class="check-row">
       <input type="checkbox" required>
       <span>18 yaş ve üzerindeyim, kaydı kendi rızamla oluşturuyorum.</span>
     </div>
 
-    <button type="submit" id="submitBtn">Kaydı Gönder</button>
+    <div class="check-row">
+      <input type="checkbox" required>
+      <span>Kişisel verilerimin kayıt ve iletişim amacıyla kullanılmasına yönelik <b>KVKK Aydınlatma Metnini</b> okudum ve kabul ediyorum.</span>
+    </div>
+
+    <button type="submit" id="submitBtn">Kaydı Tamamla</button>
   </form>
 
   <div class="warning">
-    ⚠️ Ödeme dekontunu WhatsApp üzerinden <strong>0530 916 44 25</strong> gönderiniz.<br>
-    Ödeme kontrolünden sonra kaydınız onaylanacaktır.
+    ⚠️ Ödeme dekontunu WhatsApp üzerinden iletmeyi unutmayınız. Ödeme sonrası kaydınız kesinleşecektir.
   </div>
 </div>
 
@@ -183,7 +194,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   const btn = document.getElementById("submitBtn");
 
   btn.disabled = true;
-  btn.innerText = "Kontrol ediliyor...";
+  btn.innerText = "İşleniyor...";
 
   const callbackName = "cb_" + Math.round(Math.random() * 1000000);
   const params = new URLSearchParams({
@@ -204,16 +215,16 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
     if (data.ok) {
       document.getElementById("formArea").innerHTML = `
         <div class="message-screen">
-          <h2 style="color: #ec4899;">✨ Kayıt Alındı</h2>
-          <p>Ödeme dekontunu WhatsApp üzerinden iletiniz.</p>
-          <button onclick="location.reload()" style="background: #374151; width: auto; padding: 10px 20px;">Yeni Kayıt</button>
+          <h2 style="color: #ec4899;">✨ Kayıt Talebi Alındı</h2>
+          <p>Dekontunuzu iletmeyi unutmayın! Kontrolden sonra kaydınız "Onaylı" duruma gelecektir.</p>
+          <button onclick="location.reload()" style="background: #374151; width: auto; padding: 12px 25px;">Yeni Kayıt Oluştur</button>
         </div>`;
     } else {
       document.getElementById("formArea").innerHTML = `
         <div class="message-screen">
-          <h2 style="color: #fbbf24;">⚠️ Seans Dolu</h2>
-          <p style="line-height: 1.8;">Maalesef seçtiğiniz seans 5 kişilik<br>kontenjan sınırına ulaşmıştır.<br><br>Lütfen başka bir gün seçiniz.</p>
-          <button onclick="location.reload()" style="background: linear-gradient(135deg,#7c3aed,#ec4899);">Geri Dön</button>
+          <h2 style="color: #fbbf24;">⚠️ Üzgünüz, Seans Dolu</h2>
+          <p style="line-height: 1.8;">Seçtiğiniz seans 5 kişilik limitine ulaşmıştır.<br>Lütfen farklı bir seans veya tarih seçiniz.</p>
+          <button onclick="location.reload()" style="background: linear-gradient(135deg,#7c3aed,#ec4899); width: auto; padding: 12px 25px;">Geri Dön ve Düzenle</button>
         </div>`;
     }
     delete window[callbackName];
@@ -221,12 +232,9 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   };
 
   script.onerror = function() {
-    document.getElementById("formArea").innerHTML = `
-        <div class="message-screen">
-          <h2 style="color: #ef4444;">⚠️ Bağlantı Sorunu</h2>
-          <p>Lütfen internetinizi veya bağlantınızı kontrol edin.</p>
-          <button onclick="location.reload()">Tekrar Dene</button>
-        </div>`;
+    btn.disabled = false;
+    btn.innerText = "Tekrar Dene";
+    alert("Bir bağlantı sorunu oluştu, lütfen internetinizi kontrol edin.");
   };
   
   document.body.appendChild(script);

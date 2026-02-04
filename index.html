@@ -79,6 +79,45 @@
     line-height: 1.4;
   }
   .age-check input{width:auto; margin: 0; margin-top:2px; cursor: pointer;}
+  .kvkk-link{color: #ec4899; text-decoration: underline; cursor: pointer;}
+
+  /* Modal Stili */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+    padding: 20px;
+  }
+  .modal-content {
+    background: #1a1425;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #371d52;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 18px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .modal-header { font-weight: bold; font-size: 18px; margin-bottom: 15px; color: #ec4899; border-bottom: 1px solid #371d52; padding-bottom: 10px; }
+  .modal-text { font-size: 13px; line-height: 1.6; color: #d1d5db; }
+  .close-modal {
+    background: #371d52;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+    cursor: pointer;
+    float: right;
+  }
   
   button{
     width:100%;
@@ -112,6 +151,16 @@
 </head>
 
 <body>
+
+<div id="kvkkModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">Aydınlatma Metni</div>
+    <div class="modal-text">
+      Bu form aracılığıyla paylaştığınız veriler yalnızca atölye kaydı ve iletişim amacıyla kullanılacaktır. Kişisel verileriniz yasal süreler sonunda silinecektir ve dilediğiniz zaman silinmesini talep etme hakkınız saklıdır.
+    </div>
+    <button class="close-modal" onclick="closeKvkk()">Kapat</button>
+  </div>
+</div>
 
 <div class="form-card" id="formArea">
   <h1>Cadı Atölyesi</h1>
@@ -172,7 +221,12 @@
 
     <div class="age-check">
       <input type="checkbox" required>
-      <span>Kişisel verilerimin kayıt ve iletişim amacıyla kullanılmasını içeren <b>KVKK Aydınlatma Metnini</b> okudum ve kabul ediyorum.</span>
+      <span>Kişisel verilerimin işlenmesine dair <span class="kvkk-link" onclick="openKvkk()">Aydınlatma Metnini</span> okudum ve kabul ediyorum.</span>
+    </div>
+
+    <div class="age-check">
+      <input type="checkbox" id="marketing">
+      <span>Gelecek kampanya ve duyurulardan haberdar olmak istiyorum. (İsteğe bağlı)</span>
     </div>
 
     <button type="submit" id="submitBtn">Kaydı Gönder</button>
@@ -187,7 +241,9 @@
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwQvFVLLIOb1Ebh_vuWFi4WT14-N7b4_oaQToOTZsQonYNOaL6DxWK93xMAHoso9bmcg/exec";
 
-// PDF'de bozulmayı önlemek için Türkçe karakterleri temizleme fonksiyonu
+function openKvkk() { document.getElementById("kvkkModal").style.display = "block"; }
+function closeKvkk() { document.getElementById("kvkkModal").style.display = "none"; }
+
 function cleanText(str) {
   return str.replace(/İ/g, "I").replace(/ı/g, "i").replace(/Ğ/g, "G").replace(/ğ/g, "g")
             .replace(/Ü/g, "U").replace(/ü/g, "u").replace(/Ş/g, "S").replace(/ş/g, "s")
@@ -211,7 +267,8 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
     phone: f.phone.value.trim(),
     date: f.date.value,
     session: f.session.value,
-    price: f.price.value
+    price: f.price.value,
+    marketing: document.getElementById("marketing").checked
   });
 
   const script = document.createElement('script');

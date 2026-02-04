@@ -16,6 +16,11 @@
   .iban-box {background: rgba(124, 58, 237, 0.15);border: 1px dashed #7c3aed;border-radius: 14px;padding: 15px;text-align: center;margin-bottom: 18px;}
   .iban-box strong { display: block; color: #fbbf24; margin-bottom: 5px; font-size: 14px; }
   .iban-num { font-family: monospace; font-size: 14px; letter-spacing: 1px; color: #fff; }
+  
+  /* BİLGİLENDİRME KUTUSU */
+  .info-box { background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 14px; padding: 15px; text-align: center; margin-bottom: 18px; font-size: 13px; line-height: 1.5; color: #e9d5ff; }
+  .info-box strong { color: #d8b4fe; }
+
   .check-row{display:flex;gap:10px;font-size:12px;margin-bottom:12px;align-items: flex-start;color: #cbd5e1;}
   .check-row input{width:auto;margin: 0; margin-top:2px; cursor: pointer;}
   button{width:100%;padding:16px;border-radius:16px;border:none;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition: 0.2s;}
@@ -34,8 +39,7 @@
     <strong>🌙 Haftalık Program</strong>
     🎨 Pazartesi & Perşembe — Küçük Tuval Resim Workshop'u<br>
     🏺 Salı & Cuma — Kil Atölyesi<br>
-    🔮 Çarşamba & Cumartesi — Kavanoz Boyama Atölyesi<br><br>
-    Seanslar: 09.30 – 11.00 / 11.20 – 12.50 / 14.10 – 15.40 / 16.00 – 17.30
+    🔮 Çarşamba & Cumartesi — Kavanoz Boyama Atölyesi
   </div>
 
   <form id="registerForm">
@@ -69,6 +73,12 @@
       <div style="font-size: 13px;">Merve Köken</div>
     </div>
 
+    <div class="info-box">
+      <strong>📢 Bilgilendirme</strong><br>
+      Kayıt öncesi fiyat bilgisi için WhatsApp'tan<br>
+      <strong>0530 916 44 25</strong> bize ulaşabilirsiniz 💜
+    </div>
+
     <div class="check-row">
       <input type="checkbox" required>
       <span>18 yaş ve üzerindeyim.</span>
@@ -76,7 +86,7 @@
 
     <div class="check-row">
       <input type="checkbox" required>
-      <span><b>KVKK Aydınlatma Metnini</b> okudum ve kabul ediyorum.</span>
+      <span>KVKK Aydınlatma Metnini okudum ve kabul ediyorum.</span>
     </div>
 
     <button type="submit" id="submitBtn">Kaydı Gönder</button>
@@ -88,8 +98,14 @@
 </div>
 
 <script>
-// Sizin API URL'niz
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwQvFVLLIOb1Ebh_vuWFi4WT14-N7b4_oaQToOTZsQonYNOaL6DxWK93xMAHoso9bmcg/exec";
+
+// PDF'de bozulmayı önlemek için karakter temizleyici
+function cleanForPDF(str) {
+  return str.replace(/İ/g, "I").replace(/ı/g, "i").replace(/Ğ/g, "G").replace(/ğ/g, "g")
+            .replace(/Ü/g, "U").replace(/ü/g, "u").replace(/Ş/g, "S").replace(/ş/g, "s")
+            .replace(/Ö/g, "O").replace(/ö/g, "o").replace(/Ç/g, "C").replace(/ç/g, "c");
+}
 
 document.getElementById("registerForm").addEventListener("submit", function(e){
   e.preventDefault();
@@ -99,19 +115,17 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   btn.disabled = true;
   btn.innerText = "İşleniyor...";
 
-  // JSONP Callback mekanizması (Takılmayı önlemek için en güvenli yol)
   const cbName = "cb_" + Date.now();
   const params = new URLSearchParams({
     callback: cbName,
     type: "cadi",
-    name: f.name.value.trim(),
+    // Verileri temizleyerek gönderiyoruz ki PDF düzgün çıksın
+    name: cleanForPDF(f.name.value.trim()),
     email: f.email.value.trim(),
     phone: f.phone.value.trim(),
     date: f.date.value,
     session: f.session.value,
-    price: f.price.value,
-    not: "Yeni Kayit", // Boş kalmaması için
-    dil: "tr"
+    price: f.price.value
   });
 
   const script = document.createElement('script');
@@ -122,26 +136,17 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
       document.getElementById("formArea").innerHTML = `
         <div class="message-screen">
           <h2 style="color: #ec4899;">✨ Kayıt Başarılı</h2>
-          <p>Dekontunuzu WhatsApp'tan iletmeyi unutmayın.</p>
+          <p>Dekontunuzu iletmeyi unutmayın. Atölyede görüşmek üzere!</p>
           <button onclick="location.reload()" style="background:#4b5563; width:auto; padding:10px 20px;">Kapat</button>
         </div>`;
     } else {
-      alert("Hata: " + (data.error === "limit" ? "Kontenjan dolu!" : "Bir hata oluştu."));
+      alert("Hata: " + (data.error === "limit" ? "Bu seans doludur!" : "Sistem hatası oluştu. Lütfen tekrar deneyin."));
       btn.disabled = false;
       btn.innerText = "Kaydı Gönder";
     }
     delete window[cbName];
     document.body.removeChild(script);
   };
-
-  // 10 saniye sonra hala yanıt yoksa butonu aç
-  setTimeout(() => {
-    if(btn.disabled && btn.innerText === "İşleniyor...") {
-        btn.disabled = false;
-        btn.innerText = "Tekrar Dene";
-        console.log("Zaman aşımı");
-    }
-  }, 10000);
 
   document.body.appendChild(script);
 });

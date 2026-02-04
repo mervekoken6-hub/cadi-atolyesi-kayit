@@ -8,7 +8,7 @@
 <style>
   body{
     margin:0;
-    font-family:'Segoe UI',sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background:radial-gradient(circle at top,#2b1c3a,#0e0b14);
     color:#f5eaff;
     min-height:100vh;
@@ -19,134 +19,160 @@
   }
   .form-card{
     background:rgba(20,15,30,.95);
-    border-radius:20px;
+    border-radius:24px;
     padding:34px;
     width:100%;
     max-width:480px;
-    box-shadow:0 25px 50px rgba(0,0,0,.65);
+    box-shadow:0 30px 60px rgba(0,0,0,.7);
+    border: 1px solid rgba(124, 58, 237, 0.2);
   }
-  h1{text-align:center;margin-bottom:6px;font-weight:700;}
-  .subtitle{text-align:center;font-size:14px;opacity:.85;margin-bottom:22px;}
-  label{font-size:13px;font-weight:600;display:block;margin-bottom:6px;}
+  h1{text-align:center;margin-bottom:6px;font-weight:800; color: #fff; letter-spacing: -1px;}
+  .subtitle{text-align:center;font-size:14px;opacity:.85;margin-bottom:22px; color: #c4b5fd;}
+  
+  label{font-size:12px;font-weight:700;display:block;margin-bottom:6px; color: #a78bfa; text-transform: uppercase;}
+  
   input,select{
     width:100%;
-    padding:12px;
+    padding:13px;
     border-radius:12px;
-    border:none;
-    margin-bottom:16px;
-    background:#1f172b;
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    margin-bottom:18px;
+    background:#161021;
     color:#fff;
     box-sizing: border-box;
     outline: none;
+    transition: all 0.3s ease;
   }
+  input:focus, select:focus {
+    border-color: #ec4899;
+    background: #1f172b;
+    box-shadow: 0 0 10px rgba(236, 72, 153, 0.2);
+  }
+
   .program{
     background:linear-gradient(135deg,#1f1730,#120d1f);
-    border-radius:16px;
-    padding:18px;
+    border-radius:18px;
+    padding:20px;
     font-size:13px;
     line-height:1.7;
     margin-bottom:24px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
-  .program strong{display:block;margin-bottom:8px;font-size:14px;}
-  .program .quota{ margin-top:10px; font-size:12.5px; opacity:.85; }
+  .program strong{display:block;margin-bottom:8px;font-size:14px; color: #fbbf24;}
+  .program .quota{ margin-top:10px; font-size:12.5px; color: #34d399; font-weight: 600; }
   
   .iban-box {
-    background: rgba(124, 58, 237, 0.15);
-    border: 1px dashed #7c3aed;
-    border-radius: 14px;
-    padding: 15px;
+    background: rgba(124, 58, 237, 0.1);
+    border: 1px dashed rgba(124, 58, 237, 0.5);
+    border-radius: 16px;
+    padding: 16px;
     text-align: center;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
   }
   .iban-box strong { display: block; color: #fbbf24; margin-bottom: 5px; font-size: 14px; }
-  .iban-num { font-family: monospace; font-size: 14px; letter-spacing: 1px; color: #fff; }
+  .iban-num { font-family: 'Courier New', monospace; font-size: 14px; font-weight: bold; color: #fff; }
 
   .announcement{
-    background:rgba(168,85,247,.12);
-    border:1px solid rgba(168,85,247,.35);
+    background:rgba(168,85,247,0.08);
     border-radius:14px;
     padding:14px;
-    font-size:13px;
+    font-size:12.5px;
     text-align:center;
-    margin-bottom:18px;
+    margin-bottom:20px;
+    color: #d1d5db;
   }
+  
   .age-check{
     display:flex;
     gap:10px;
     font-size:12px;
-    margin-bottom:10px;
+    margin-bottom:12px;
     align-items: flex-start;
-    line-height: 1.4;
+    line-height: 1.5;
+    color: #9ca3af;
   }
-  .age-check input{width:auto; margin: 0; margin-top:2px; cursor: pointer;}
-  .kvkk-link{color: #ec4899; text-decoration: underline; cursor: pointer;}
+  .age-check input{width:auto; margin: 0; margin-top:3px; cursor: pointer; accent-color: #ec4899;}
+  .kvkk-link{color: #ec4899; text-decoration: underline; cursor: pointer; font-weight: 600;}
 
-  /* Modal Stili */
+  /* Modal */
   .modal {
     display: none;
     position: fixed;
     z-index: 9999;
     left: 0; top: 0;
     width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
-    padding: 20px;
+    background-color: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
   }
   .modal-content {
-    background: #1a1425;
-    margin: auto;
-    padding: 20px;
+    background: #110d1a;
+    margin: 10% auto;
+    padding: 25px;
     border: 1px solid #371d52;
-    width: 90%;
+    width: 85%;
     max-width: 450px;
-    border-radius: 18px;
-    max-height: 80vh;
+    border-radius: 20px;
+    max-height: 70vh;
     overflow-y: auto;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
   }
-  .modal-header { font-weight: bold; font-size: 18px; margin-bottom: 15px; color: #ec4899; border-bottom: 1px solid #371d52; padding-bottom: 10px; }
-  .modal-text { font-size: 13px; line-height: 1.6; color: #d1d5db; }
+  .modal-header { font-weight: bold; font-size: 18px; margin-bottom: 15px; color: #ec4899; }
+  .modal-text { font-size: 13.5px; line-height: 1.6; color: #cbd5e1; }
   .close-modal {
-    background: #371d52;
+    background: #7c3aed;
     color: white;
     border: none;
-    padding: 8px 20px;
-    border-radius: 8px;
-    margin-top: 15px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-top: 20px;
     cursor: pointer;
-    float: right;
+    font-weight: 600;
   }
   
-  button{
+  button#submitBtn {
     width:100%;
-    padding:16px;
+    padding:18px;
     border-radius:16px;
     border:none;
     background:linear-gradient(135deg,#7c3aed,#ec4899);
     color:#fff;
-    font-size:15px;
-    font-weight:700;
+    font-size:16px;
+    font-weight:800;
     cursor:pointer;
-    transition: transform 0.2s, opacity 0.3s;
-    margin-top: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
   }
-  button:active{ transform: scale(0.98); }
-  button:disabled{ opacity: 0.6; cursor: not-allowed; }
+  button#submitBtn:hover:not(:disabled){ transform: translateY(-2px); box-shadow: 0 15px 25px rgba(236, 72, 153, 0.4); }
+  button#submitBtn:active{ transform: scale(0.98); }
+  button#submitBtn:disabled{ opacity: 0.6; cursor: not-allowed; }
   
   .warning{
-    margin-top:16px;
+    margin-top:20px;
     padding:14px;
     border-radius:14px;
-    background:rgba(255,193,7,.15);
+    background:rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.2);
     color:#fde68a;
     font-size:12px;
     text-align:center;
-    font-weight:600;
   }
-  .message-screen{text-align:center;padding:40px 10px; animation: fadeIn 0.5s ease-in-out;}
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .success-card {
+    text-align:center;
+    padding:20px 10px;
+    animation: fadeIn 0.6s ease-out;
+  }
+  .success-icon { font-size: 50px; margin-bottom: 15px; }
+  .reg-number { 
+    display: inline-block; 
+    background: #1f172b; 
+    padding: 8px 16px; 
+    border-radius: 10px; 
+    color: #fbbf24; 
+    font-weight: bold; 
+    margin: 15px 0;
+    border: 1px solid #fbbf24;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 </style>
 </head>
 
@@ -154,87 +180,85 @@
 
 <div id="kvkkModal" class="modal">
   <div class="modal-content">
-    <div class="modal-header">Aydınlatma Metni</div>
+    <div class="modal-header">Aydınlatma Metni & Politikalar</div>
     <div class="modal-text">
-      Bu form aracılığıyla paylaştığınız veriler yalnızca atölye kaydı ve iletişim amacıyla kullanılacaktır. Kişisel verileriniz yasal süreler sonunda silinecektir ve dilediğiniz zaman silinmesini talep etme hakkınız saklıdır.
+      <strong>Veri İşleme Amacı:</strong> Bu formdaki verileriniz Cadı Atölyesi kayıt süreçleri, kontenjan takibi ve size Zoom linki ulaştırmak amacıyla işlenir.<br><br>
+      <strong>Saklama Süresi:</strong> Kişisel verileriniz, ilgili mevzuatta öngörülen süreler boyunca saklanır. Atölye süreci bitiminde talebiniz halinde silinir.<br><br>
+      <strong>Haklarınız:</strong> Verilerinizin silinmesini, düzeltilmesini veya işlenip işlenmediğini öğrenme hakkına sahipsiniz. Başvuru için WhatsApp hattımızdan bize ulaşabilirsiniz.
     </div>
-    <button class="close-modal" onclick="closeKvkk()">Kapat</button>
+    <button class="close-modal" onclick="closeKvkk()">Anladım, Kapat</button>
   </div>
 </div>
 
 <div class="form-card" id="formArea">
   <h1>Cadı Atölyesi</h1>
-  <div class="subtitle">Atölye Kayıt Formu</div>
+  <div class="subtitle">Resmi Kayıt ve Başvuru Paneli</div>
 
   <div class="program">
-    <strong>🌙 Haftalık Program</strong>
-    🎨 Pazartesi & Perşembe — Küçük Tuval Resim Workshop’u<br>
+    <strong>🌙 Haftalık Atölye Takvimi</strong>
+    🎨 Paz. & Per. — Küçük Tuval Workshop<br>
     🏺 Salı & Cuma — Kil Atölyesi<br>
-    🔮 Çarşamba & Cumartesi — Kavanoz Boyama Atölyesi<br><br>
-    Seanslar: 09.30 – 11.00 / 11.20 – 12.50 / 14.10 – 15.40 / 16.00 – 17.30<br>
-    Cumartesi ek seans: 17.50 – 19.20
-    <div class="quota">✨ Her seans en fazla <strong>5 kişiliktir</strong>.</div>
+    🔮 Çar. & Cmt. — Kavanoz Boyama<br><br>
+    <div class="quota">✨ Kontenjan: Her seans max 5 Kişi</div>
   </div>
 
   <form id="registerForm">
-    <label>Ad Soyad</label>
-    <input name="name" required placeholder="Adınız Soyadınız">
+    <label>Katılımcı Ad Soyad</label>
+    <input name="name" required placeholder="Örn: Merve Köken">
 
-    <label>E-posta</label>
-    <input type="email" name="email" required placeholder="mail@adresiniz.com">
+    <label>E-posta Adresi</label>
+    <input type="email" name="email" required placeholder="ornek@mail.com">
 
-    <label>Telefon (WhatsApp)</label>
+    <label>WhatsApp Telefon No</label>
     <input type="tel" name="phone" required placeholder="05xx xxx xx xx">
 
-    <label>Tarih</label>
-    <input type="date" name="date" required>
+    <div style="display: flex; gap: 10px;">
+      <div style="flex: 1;">
+        <label>Seçilen Tarih</label>
+        <input type="date" name="date" required>
+      </div>
+      <div style="flex: 1;">
+        <label>Seans Saati</label>
+        <select name="session" required>
+          <option value="">Seçiniz</option>
+          <option>09.30 – 11.00</option>
+          <option>11.20 – 12.50</option>
+          <option>14.10 – 15.40</option>
+          <option>16.00 – 17.30</option>
+          <option>17.50 – 19.20</option>
+        </select>
+      </div>
+    </div>
 
-    <label>Seans Saati</label>
-    <select name="session" required>
-      <option value="">Seçiniz</option>
-      <option>09.30 – 11.00</option>
-      <option>11.20 – 12.50</option>
-      <option>14.10 – 15.40</option>
-      <option>16.00 – 17.30</option>
-      <option>17.50 – 19.20</option>
-    </select>
-
-    <label>Ücret (TL)</label>
-    <input type="number" name="price" value="500" required>
+    <label>Ödeme Tutarı (TL)</label>
+    <input type="number" name="price" value="500" readonly style="background: rgba(255,255,255,0.05); cursor: not-allowed;">
 
     <div class="iban-box">
-      <strong>💳 Ödeme Bilgileri</strong>
-      <div class="iban-num">TR78 0004 6012 1488 8000 1122 48</div>
-      <div style="font-size: 13px; margin-top: 5px; opacity: 0.9;">Merve Köken</div>
-    </div>
-
-    <div class="announcement">
-      <strong>📢 Duyuru</strong><br>
-      Kayıt öncesinde fiyat bilgisi ve detaylar için<br>
-      WhatsApp’tan <strong>0530 916 44 25</strong> bize yazabilirsiniz 💜
+      <strong>💳 Ödeme Alıcısı: Merve Köken</strong>
+      <div class="iban-num" id="copyIban">TR78 0004 6012 1488 8000 1122 48</div>
+      <div style="font-size: 11px; margin-top: 5px; color: #a78bfa;">(Lütfen açıklamaya adınızı yazınız)</div>
     </div>
 
     <div class="age-check">
       <input type="checkbox" required>
-      <span>18 yaş ve üzerindeyim, kaydı kendi rızamla oluşturuyorum.</span>
+      <span>18 yaş ve üzerindeyim, katılım koşullarını onaylıyorum.</span>
     </div>
 
     <div class="age-check">
       <input type="checkbox" required>
-      <span>Kişisel verilerimin işlenmesine dair <span class="kvkk-link" onclick="openKvkk()">Aydınlatma Metnini</span> okudum ve kabul ediyorum.</span>
+      <span>Verilerimin işlenmesine dair <span class="kvkk-link" onclick="openKvkk()">Aydınlatma Metnini</span> okudum.</span>
     </div>
 
     <div class="age-check">
       <input type="checkbox" id="marketing">
-      <span>Gelecek kampanya ve duyurulardan haberdar olmak istiyorum. (İsteğe bağlı)</span>
+      <span>Yeni atölye duyurularından haberdar olmak istiyorum.</span>
     </div>
 
-    <button type="submit" id="submitBtn">Kaydı Gönder</button>
+    <button type="submit" id="submitBtn">KAYDI SİSTEME GÖNDER</button>
   </form>
 
   <div class="warning">
-    ⚠️ Ödeme dekontunu WhatsApp üzerinden <strong>0530 916 44 25</strong> gönderiniz.<br>
-    Ödeme kontrolünden sonra kaydınız onaylanacaktır.
+    ⚠️ İşlem sonrası dekontunuzu <strong>0530 916 44 25</strong> numaralı hatta iletmeyi unutmayınız.
   </div>
 </div>
 
@@ -254,9 +278,10 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   e.preventDefault();
   const f = e.target;
   const btn = document.getElementById("submitBtn");
+  const regID = "CAD-" + Math.floor(1000 + Math.random() * 9000); // Rastgele Kayıt No
 
   btn.disabled = true;
-  btn.innerText = "İşleniyor...";
+  btn.innerText = "SİSTEME BAĞLANILIYOR...";
 
   const callbackName = "cb_" + Math.round(Math.random() * 1000000);
   const params = new URLSearchParams({
@@ -268,7 +293,8 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
     date: f.date.value,
     session: f.session.value,
     price: f.price.value,
-    marketing: document.getElementById("marketing").checked
+    marketing: document.getElementById("marketing").checked,
+    regID: regID
   });
 
   const script = document.createElement('script');
@@ -277,17 +303,23 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   window[callbackName] = function(data) {
     if (data.ok) {
       document.getElementById("formArea").innerHTML = `
-        <div class="message-screen">
-          <h2 style="color: #ec4899;">✨ Kayıt Alındı</h2>
-          <p>Ödeme dekontunu WhatsApp üzerinden iletiniz.</p>
-          <button onclick="location.reload()" style="background: #374151; width: auto; padding: 10px 20px;">Yeni Kayıt</button>
+        <div class="success-card">
+          <div class="success-icon">✨</div>
+          <h2 style="color: #ec4899; margin-bottom: 5px;">Başvuru Alındı!</h2>
+          <p style="font-size: 14px; opacity: 0.9;">Kaydınız sisteme başarıyla işlendi.</p>
+          <div class="reg-number">Kayıt No: ${regID}</div>
+          <p style="font-size: 13px; line-height: 1.6;">
+            Lütfen bu kayıt numarasını veya dekontunuzu WhatsApp üzerinden ileterek işleminizi tamamlayınız.
+          </p>
+          <button onclick="location.reload()" style="background: #374151; width: auto; padding: 12px 25px; margin-top:20px; font-size:14px;">ANAPANEL'E DÖN</button>
         </div>`;
     } else {
       document.getElementById("formArea").innerHTML = `
-        <div class="message-screen">
-          <h2 style="color: #fbbf24;">⚠️ Seans Dolu</h2>
-          <p style="line-height: 1.8;">Maalesef seçtiğiniz seans 5 kişilik<br>kontenjan sınırına ulaşmıştır.<br><br>Lütfen başka bir gün seçiniz.</p>
-          <button onclick="location.reload()" style="background: linear-gradient(135deg,#7c3aed,#ec4899);">Geri Dön</button>
+        <div class="success-card">
+          <div class="success-icon">⚠️</div>
+          <h2 style="color: #fbbf24;">KONTENJAN DOLU</h2>
+          <p style="font-size: 14px; line-height: 1.8;">Maalesef bu seans dolmuştur.<br>Lütfen farklı bir zaman dilimi seçiniz.</p>
+          <button onclick="location.reload()" style="background: linear-gradient(135deg,#7c3aed,#ec4899); margin-top:20px;">TEKRAR DENE</button>
         </div>`;
     }
     delete window[callbackName];
@@ -295,9 +327,9 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   };
 
   script.onerror = function() {
-    alert("Bağlantı hatası oluştu. Lütfen tekrar deneyin.");
+    alert("Bağlantı hatası! Lütfen internetinizi kontrol edip tekrar deneyin.");
     btn.disabled = false;
-    btn.innerText = "Kaydı Gönder";
+    btn.innerText = "KAYDI GÖNDER";
   };
   
   document.body.appendChild(script);

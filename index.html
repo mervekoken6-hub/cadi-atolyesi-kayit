@@ -73,11 +73,13 @@
   .age-check{
     display:flex;
     gap:10px;
-    font-size:13px;
-    margin-bottom:16px;
+    font-size:12px;
+    margin-bottom:10px;
     align-items: flex-start;
+    line-height: 1.4;
   }
-  .age-check input{width:auto;margin-top:3px; cursor: pointer;}
+  .age-check input{width:auto; margin: 0; margin-top:2px; cursor: pointer;}
+  
   button{
     width:100%;
     padding:16px;
@@ -89,16 +91,18 @@
     font-weight:700;
     cursor:pointer;
     transition: transform 0.2s, opacity 0.3s;
+    margin-top: 10px;
   }
   button:active{ transform: scale(0.98); }
   button:disabled{ opacity: 0.6; cursor: not-allowed; }
+  
   .warning{
     margin-top:16px;
     padding:14px;
     border-radius:14px;
     background:rgba(255,193,7,.15);
     color:#fde68a;
-    font-size:13px;
+    font-size:12px;
     text-align:center;
     font-weight:600;
   }
@@ -166,6 +170,11 @@
       <span>18 yaş ve üzerindeyim, kaydı kendi rızamla oluşturuyorum.</span>
     </div>
 
+    <div class="age-check">
+      <input type="checkbox" required>
+      <span>Kişisel verilerimin kayıt ve iletişim amacıyla kullanılmasını içeren <b>KVKK Aydınlatma Metnini</b> okudum ve kabul ediyorum.</span>
+    </div>
+
     <button type="submit" id="submitBtn">Kaydı Gönder</button>
   </form>
 
@@ -178,7 +187,7 @@
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwQvFVLLIOb1Ebh_vuWFi4WT14-N7b4_oaQToOTZsQonYNOaL6DxWK93xMAHoso9bmcg/exec";
 
-// Türkçe karakterleri temizleyen fonksiyon (PDF ve Tablo güvenliği için)
+// PDF'de bozulmayı önlemek için Türkçe karakterleri temizleme fonksiyonu
 function cleanText(str) {
   return str.replace(/İ/g, "I").replace(/ı/g, "i").replace(/Ğ/g, "G").replace(/ğ/g, "g")
             .replace(/Ü/g, "U").replace(/ü/g, "u").replace(/Ş/g, "S").replace(/ş/g, "s")
@@ -214,14 +223,14 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
         <div class="message-screen">
           <h2 style="color: #ec4899;">✨ Kayıt Alındı</h2>
           <p>Ödeme dekontunu WhatsApp üzerinden iletiniz.</p>
-          <button onclick="location.reload()" style="background: #374151; width: auto; padding: 10px 20px; border-radius:12px; border:none; color:white; cursor:pointer;">Yeni Kayıt</button>
+          <button onclick="location.reload()" style="background: #374151; width: auto; padding: 10px 20px;">Yeni Kayıt</button>
         </div>`;
     } else {
       document.getElementById("formArea").innerHTML = `
         <div class="message-screen">
           <h2 style="color: #fbbf24;">⚠️ Seans Dolu</h2>
           <p style="line-height: 1.8;">Maalesef seçtiğiniz seans 5 kişilik<br>kontenjan sınırına ulaşmıştır.<br><br>Lütfen başka bir gün seçiniz.</p>
-          <button onclick="location.reload()" style="background: linear-gradient(135deg,#7c3aed,#ec4899); width: auto; padding: 10px 20px; border-radius:12px; border:none; color:white; cursor:pointer;">Geri Dön</button>
+          <button onclick="location.reload()" style="background: linear-gradient(135deg,#7c3aed,#ec4899);">Geri Dön</button>
         </div>`;
     }
     delete window[callbackName];
@@ -229,7 +238,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   };
 
   script.onerror = function() {
-    alert("Bağlantı hatası! Lütfen tekrar deneyin.");
+    alert("Bağlantı hatası oluştu. Lütfen tekrar deneyin.");
     btn.disabled = false;
     btn.innerText = "Kaydı Gönder";
   };
